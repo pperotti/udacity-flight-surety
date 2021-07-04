@@ -16,13 +16,23 @@ import './flightsurety.css';
             let flight = document.getElementById('flight-number').value;
             // Write transaction
             contract.fetchFlightStatus(flight, (error, result) => {
-                display('Oracles', 'Trigger oracles', [ { label: 'Fetch Flight Status', error: error, value: result.flight + ' ' + result.timestamp} ]);
+                console.log("Result:");
+                console.log(result);
             });
+
+            /*
+            contract.fetchFlightStatus(flight, (error, result) => {
+                console.log("Result:");
+                console.log(result);
+                //display('Oracles', 'Trigger oracles', [ { label: 'Fetch Flight Status', error: error, value: result.flight + ' ' + result.timestamp} ]);
+            });
+            */
         })
     });
 })();
 
 function display(title, description, results) {
+
     var displayDiv = document.getElementById("display-wrapper");
     var section = document.createElement("div");
     var titleTag = document.createElement("h2");
