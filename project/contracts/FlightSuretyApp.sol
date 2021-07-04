@@ -126,8 +126,8 @@ contract FlightSuretyApp {
     
    /**
     * @dev Called after oracle has updated flight status
-    *
     */  
+/*
     function processFlightStatus
                                 (
                                     address airline,
@@ -136,10 +136,17 @@ contract FlightSuretyApp {
                                     uint8 statusCode
                                 )
                                 internal
-                                pure
     {
+        // Save the flight information for posterity
+        bytes32 flightKey = keccak256(abi.encodePacked(flight, timestamp));
+        
+        // Prevent any more responses since MIN_RESPONSE threshold has been reached
+        oracleResponses[flightKey].isOpen = false;
+        
+        // Save the filght for posterity. (TODO: check timestamp value)
+        flights[flightKey] = Flight(true, statusCode, timestamp, airline);
     }
-
+*/
 
     // Generate a request for oracles to fetch flight information
     function fetchFlightStatus
@@ -166,14 +173,13 @@ contract FlightSuretyApp {
 // region ORACLE MANAGEMENT
 
     // Incremented to add pseudo-randomness at various points
-    uint8 private nonce = 0;
+    uint8 private nonce = 0;    
 
     // Fee to be paid when registering oracle
     uint256 public constant REGISTRATION_FEE = 1 ether;
 
     // Number of oracles that must respond for valid status
     uint256 private constant MIN_RESPONSES = 3;
-
 
     struct Oracle {
         bool isRegistered;
@@ -217,28 +223,29 @@ contract FlightSuretyApp {
         // Require registration fee
         require(msg.value >= REGISTRATION_FEE, "Registration fee is required");
 
+        // Generate Unique Indexes for the new oracle
         uint8[3] memory indexes = generateIndexes(msg.sender);
 
+        // Create the proper Oracla object in the Contract with its assigned indexes.
         oracles[msg.sender] = Oracle({
                                         isRegistered: true,
                                         indexes: indexes
                                     });
     }
 
-    function getMyIndexes
+    //getMyIndexes
+    function getOracleIndexes
                             (
+                                address account
                             )
                             view
                             external
+                            requireContractOwner
                             returns(uint8[3])
     {
-        require(oracles[msg.sender].isRegistered, "Not registered as an oracle");
-
-        return oracles[msg.sender].indexes;
+        //require(oracles[msg.sender].isRegistered, "Not registered as an oracle");
+        return oracles[account].indexes;
     }
-
-
-
 
     // Called by oracle when a response is available to an outstanding request
     // For the response to be accepted, there must be a pending request that is open
@@ -254,23 +261,39 @@ contract FlightSuretyApp {
                         )
                         external
     {
-        require((oracles[msg.sender].indexes[0] == index) || (oracles[msg.sender].indexes[1] == index) || (oracles[msg.sender].indexes[2] == index), "Index does not match oracle request");
+        //Validate the specified indexes is authorized to submit responses.
+        require((oracles[msg.sender].indexes[0] == index) 
+            || (oracles[msg.sender].indexes[1] == index) 
+            || (oracles[msg.sender].indexes[2] == index),
+            "Index does not match oracle request");
 
-
+        // Identify the key needed to 
         bytes32 key = keccak256(abi.encodePacked(index, airline, flight, timestamp)); 
         require(oracleResponses[key].isOpen, "Flight or timestamp do not match oracle request");
 
+        // Persist the repsonse in the contract
         oracleResponses[key].responses[statusCode].push(msg.sender);
 
         // Information isn't considered verified until at least MIN_RESPONSES
         // oracles respond with the *** same *** information
         emit OracleReport(airline, flight, timestamp, statusCode);
+
+        // The contract will notify ONLY when there are 3 responses with the same STATUS CODE.
         if (oracleResponses[key].responses[statusCode].length >= MIN_RESPONSES) {
-
-            emit FlightStatusInfo(airline, flight, timestamp, statusCode);
-
             // Handle flight status as appropriate
-            processFlightStatus(airline, flight, timestamp, statusCode);
+            //processFlightStatus(airline, flight, timestamp, statusCode);
+            
+            // Save the flight information for posterity
+            bytes32 flightKey = keccak256(abi.encodePacked(flight, timestamp));
+            
+            // Prevent any more responses since MIN_RESPONSE threshold has been reached
+            oracleResponses[key].isOpen = false;
+            
+            // Save the filght for posterity. (TODO: check timestamp value)
+            flights[flightKey] = Flight(true, statusCode, timestamp, airline);
+
+            //Emit Status
+            emit FlightStatusInfo(airline, flight, timestamp, statusCode);
         }
     }
 
