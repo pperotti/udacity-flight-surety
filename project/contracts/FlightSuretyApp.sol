@@ -1,4 +1,5 @@
-pragma solidity ^0.4.25;
+pragma solidity ^0.5.16;
+//pragma solidity ^0.4.25;
 
 // It's important to avoid vulnerabilities due to numeric overflow bugs
 // OpenZeppelin's SafeMath library, when used correctly, protects agains such bugs
@@ -123,39 +124,15 @@ contract FlightSuretyApp {
     {
 
     }
-    
-   /**
-    * @dev Called after oracle has updated flight status
-    */  
-/*
-    function processFlightStatus
-                                (
-                                    address airline,
-                                    string memory flight,
-                                    uint256 timestamp,
-                                    uint8 statusCode
-                                )
-                                internal
-    {
-        // Save the flight information for posterity
-        bytes32 flightKey = keccak256(abi.encodePacked(flight, timestamp));
-        
-        // Prevent any more responses since MIN_RESPONSE threshold has been reached
-        oracleResponses[flightKey].isOpen = false;
-        
-        // Save the filght for posterity. (TODO: check timestamp value)
-        flights[flightKey] = Flight(true, statusCode, timestamp, airline);
-    }
-*/
-
+ 
     // Generate a request for oracles to fetch flight information
     function fetchFlightStatus
                         (
                             address airline,
-                            string flight,
+                            string memory flight,
                             uint256 timestamp                            
                         )
-                        external
+                        public
     {
         uint8 index = getRandomIndex(msg.sender);
 
@@ -169,6 +146,21 @@ contract FlightSuretyApp {
         emit OracleRequest(index, airline, flight, timestamp);
     } 
 
+    function areResponsesAllowed
+                        (
+                            uint8 index,
+                            address airline,
+                            string memory flight,
+                            uint256 timestamp                            
+                        )
+                        view
+                        public
+                        returns(bool)
+    {
+        // Generate a unique key for storing the request
+        bytes32 key = keccak256(abi.encodePacked(index, airline, flight, timestamp));
+        return (oracleResponses[key].isOpen);
+    }
 
 // region ORACLE MANAGEMENT
 
@@ -203,21 +195,33 @@ contract FlightSuretyApp {
     mapping(bytes32 => ResponseInfo) private oracleResponses;
 
     // Event fired each time an oracle submits a response
-    event FlightStatusInfo(address airline, string flight, uint256 timestamp, uint8 status);
+    event FlightStatusInfo(
+        address airline, 
+        string flight, 
+        uint256 timestamp, 
+        uint8 status);
 
-    event OracleReport(address airline, string flight, uint256 timestamp, uint8 status);
+    event OracleReport(
+        address airline, 
+        string flight, 
+        uint256 timestamp, 
+        uint8 status);
 
     // Event fired when flight status request is submitted
     // Oracles track this and if they have a matching index
     // they fetch data and submit a response
-    event OracleRequest(uint8 index, address airline, string flight, uint256 timestamp);
+    event OracleRequest(
+        uint8 index, 
+        address airline, 
+        string flight, 
+        uint256 timestamp);
 
 
     // Register an oracle with the contract
     function registerOracle
                             (
                             )
-                            external
+                            public
                             payable
     {
         // Require registration fee
@@ -233,18 +237,21 @@ contract FlightSuretyApp {
                                     });
     }
 
-    //getMyIndexes
-    function getOracleIndexes
-                            (
-                                address account
-                            )
+    function getOracleIndexes()
                             view
-                            external
-                            requireContractOwner
-                            returns(uint8[3])
+                            public
+                            returns(uint8[3] memory)
     {
-        //require(oracles[msg.sender].isRegistered, "Not registered as an oracle");
-        return oracles[account].indexes;
+        require(oracles[msg.sender].isRegistered, "Not registered as an oracle");
+        return oracles[msg.sender].indexes;
+    }
+
+    function isOracleRegistered() 
+                            view
+                            public
+                            returns(bool)
+    {
+        return oracles[msg.sender].isRegistered;
     }
 
     // Called by oracle when a response is available to an outstanding request
@@ -255,11 +262,11 @@ contract FlightSuretyApp {
                         (
                             uint8 index,
                             address airline,
-                            string flight,
+                            string memory flight,
                             uint256 timestamp,
                             uint8 statusCode
                         )
-                        external
+                        public
     {
         //Validate the specified indexes is authorized to submit responses.
         require((oracles[msg.sender].indexes[0] == index) 
@@ -297,11 +304,10 @@ contract FlightSuretyApp {
         }
     }
 
-
     function getFlightKey
                         (
                             address airline,
-                            string flight,
+                            string memory flight,
                             uint256 timestamp
                         )
                         pure
@@ -317,7 +323,7 @@ contract FlightSuretyApp {
                                 address account         
                             )
                             internal
-                            returns(uint8[3])
+                            returns(uint8[3] memory)
     {
         uint8[3] memory indexes;
         indexes[0] = getRandomIndex(account);

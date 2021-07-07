@@ -20,7 +20,10 @@ flightSuretyApp.events.OracleRequest({
     fromBlock: 0
   }, function (error, event) {
     if (error) console.log(error)
-    console.log(event);
+    
+    //console.log(event);
+    //console.log("Address: " + config.appAddress);
+    //console.log(flightSuretyApp);
     
     // Execute WEB REQUEST TO THE ACTUAL SERVICE
     const index = event.returnValues.index;
@@ -47,8 +50,7 @@ flightSuretyApp.events.OracleRequest({
     console.log("FLIGHT STATUS: " + flightStatus);
     
     // Invoke the callback method in the contract
-    // (processFlightStatus()...)
-    flightSuretyApp.submitOracleResponse(
+    flightSuretyApp.methods.submitOracleResponse(
       index,
       airline,
       flightLabel,

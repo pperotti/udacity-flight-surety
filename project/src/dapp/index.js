@@ -1,9 +1,12 @@
 import Contract from './contract';
 import './flightsurety.css';
 
+var flightContract = null;
+
 (async() => {
     let result = null;
 
+    //LOCALHOST? This should point to the app config address.
     let contract = new Contract('localhost', () => {
         // Read transaction
         contract.isOperational((error, result) => {
@@ -18,17 +21,12 @@ import './flightsurety.css';
             contract.fetchFlightStatus(flight, (error, result) => {
                 console.log("Result:");
                 console.log(result);
-            });
 
-            /*
-            contract.fetchFlightStatus(flight, (error, result) => {
-                console.log("Result:");
-                console.log(result);
-                //display('Oracles', 'Trigger oracles', [ { label: 'Fetch Flight Status', error: error, value: result.flight + ' ' + result.timestamp} ]);
+                display('Oracles', 'Trigger oracles', [ { label: 'Fetch Flight Status', error: error, value: result.flight + ' ' + result.timestamp + ' ' + result.airline} ]);
             });
-            */
         })
     });
+    flightContract = contract;
 })();
 
 function display(title, description, results) {
