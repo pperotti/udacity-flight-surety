@@ -33,9 +33,74 @@ contract FlightSuretyApp {
         uint256 updatedTimestamp;
         address airline;
     }
-    mapping(bytes32 => Flight) private flights;
+    mapping(bytes32 => Flight) flights;
 
- 
+    // Incremented to add pseudo-randomness at various points
+    uint8 private nonce = 0;    
+
+    // Fee to be paid when registering oracle
+    uint256 public constant REGISTRATION_FEE = 1 ether;
+
+    // Number of oracles that must respond for valid status
+    uint256 private constant MIN_RESPONSES = 3;
+
+    struct Oracle {
+        bool isRegistered;
+        uint8[3] indexes;        
+    }
+
+    // Track all registered oracles
+    mapping(address => Oracle) oracles;
+
+    // Model for responses from oracles
+    struct ResponseInfo {
+        address requester;                              // Account that requested status
+        bool isOpen;                                    // If open, oracle responses are accepted
+        mapping(uint8 => address[]) responses;          // Mapping key is the status code reported
+                                                        // This lets us group responses and identify
+                                                        // the response that majority of the oracles
+    }
+
+    // Track all oracle responses
+    mapping(uint256 => ResponseInfo) oracleResponses;
+    mapping(uint256 => uint256) requesterKeys;
+
+    // Event fired each time an oracle submits a response
+    event FlightStatusInfo(
+        address airline, 
+        string flight, 
+        uint256 timestamp, 
+        uint8 status);
+
+    // todo: Event fired to indicate a response was received
+
+
+    // Event fired to indicate the callback was invoked
+    event OracleReport(
+        address airline, 
+        string flight, 
+        uint256 timestamp, 
+        uint8 status);
+
+    // Event fired when flight status request is submitted
+    // Oracles track this and if they have a matching index
+    // they fetch data and submit a response
+    event OracleRequest(
+        uint8 index, 
+        address airline, 
+        string flight, 
+        uint256 timestamp);
+
+    // ------------------------
+    uint requestCount = 0;
+    
+    event LogKeyValue(bytes32 key);
+
+    event LogOracleResponseData(
+        address requester, 
+        bool isOpen, 
+        uint256 entryKey);
+
     /********************************************************************************************/
     /*                                       FUNCTION MODIFIERS                                 */
     /********************************************************************************************/
@@ -124,103 +189,13 @@ contract FlightSuretyApp {
     {
 
     }
- 
-    // Generate a request for oracles to fetch flight information
-    function fetchFlightStatus
-                        (
-                            address airline,
-                            string memory flight,
-                            uint256 timestamp                            
-                        )
-                        public
-    {
-        uint8 index = getRandomIndex(msg.sender);
 
-        // Generate a unique key for storing the request
-        bytes32 key = keccak256(abi.encodePacked(index, airline, flight, timestamp));
-        oracleResponses[key] = ResponseInfo({
-                                                requester: msg.sender,
-                                                isOpen: true
-                                            });
-
-        emit OracleRequest(index, airline, flight, timestamp);
-    } 
-
-    function areResponsesAllowed
-                        (
-                            uint8 index,
-                            address airline,
-                            string memory flight,
-                            uint256 timestamp                            
-                        )
-                        view
-                        public
-                        returns(bool)
-    {
-        // Generate a unique key for storing the request
-        bytes32 key = keccak256(abi.encodePacked(index, airline, flight, timestamp));
-        return (oracleResponses[key].isOpen);
-    }
-
-// region ORACLE MANAGEMENT
-
-    // Incremented to add pseudo-randomness at various points
-    uint8 private nonce = 0;    
-
-    // Fee to be paid when registering oracle
-    uint256 public constant REGISTRATION_FEE = 1 ether;
-
-    // Number of oracles that must respond for valid status
-    uint256 private constant MIN_RESPONSES = 3;
-
-    struct Oracle {
-        bool isRegistered;
-        uint8[3] indexes;        
-    }
-
-    // Track all registered oracles
-    mapping(address => Oracle) private oracles;
-
-    // Model for responses from oracles
-    struct ResponseInfo {
-        address requester;                              // Account that requested status
-        bool isOpen;                                    // If open, oracle responses are accepted
-        mapping(uint8 => address[]) responses;          // Mapping key is the status code reported
-                                                        // This lets us group responses and identify
-                                                        // the response that majority of the oracles
-    }
-
-    // Track all oracle responses
-    // Key = hash(index, flight, timestamp)
-    mapping(bytes32 => ResponseInfo) private oracleResponses;
-
-    // Event fired each time an oracle submits a response
-    event FlightStatusInfo(
-        address airline, 
-        string flight, 
-        uint256 timestamp, 
-        uint8 status);
-
-    event OracleReport(
-        address airline, 
-        string flight, 
-        uint256 timestamp, 
-        uint8 status);
-
-    // Event fired when flight status request is submitted
-    // Oracles track this and if they have a matching index
-    // they fetch data and submit a response
-    event OracleRequest(
-        uint8 index, 
-        address airline, 
-        string flight, 
-        uint256 timestamp);
-
+    //*****************************************************************
+    //                   ORACLE REGISTRATION                          *
+    //*****************************************************************
 
     // Register an oracle with the contract
-    function registerOracle
-                            (
-                            )
+    function registerOracle()
                             public
                             payable
     {
@@ -254,6 +229,93 @@ contract FlightSuretyApp {
         return oracles[msg.sender].isRegistered;
     }
 
+    //***********************************************************
+    //                   FLIGHT STATUS                          *
+    //***********************************************************
+ 
+    // Generate a request for oracles to fetch flight information
+    function fetchFlightStatus
+                        (
+                            address airline,
+                            string memory flight,
+                            uint256 timestamp                            
+                        )
+                        public
+    {
+        uint8 index = getRandomIndex(msg.sender);
+
+        // Generate a unique key for storing the request
+        //bytes32 key = keccak256(abi.encodePacked(index, airline, flight, timestamp));
+        uint256 key = getResponseKey(index, airline, flight, timestamp);
+        oracleResponses[key] = ResponseInfo({
+            requester: msg.sender,
+            isOpen: true
+        });
+
+        requesterKeys[requestCount] = key;
+
+        //TODO: improve how to store the responses
+        requestCount++;
+        
+        emit OracleRequest(index, airline, flight, timestamp);
+    }
+
+    function getRequestCount()
+                        view
+                        public
+                        returns (uint)
+    {
+        return requestCount;
+    }
+
+    function getResponseInfo
+                        (
+                            uint8 index,
+                            address airline,
+                            string memory flight,
+                            uint256 timestamp 
+                        )
+                        view
+                        public
+                        returns 
+                        (
+                            address requester,
+                            bool    isOpen,
+                            uint256 retKey
+                        )
+    {
+        uint256 key = getResponseKey(index, airline, flight, timestamp);
+        return getResponseInfoByKey(key);
+    }
+
+    function getResponseInfoByKey(uint256 key)
+                        view
+                        public
+                        returns 
+                        (
+                            address requester,
+                            bool    isOpen,
+                            uint256 retKey
+                        )
+    {
+        ResponseInfo memory responseInfo = oracleResponses[key];
+        return 
+        (
+            responseInfo.requester,
+            responseInfo.isOpen,
+            key
+        );
+    }
+
+    function emitResponseInfo(uint256 key) 
+                        public
+    {
+        ResponseInfo memory responseInfo = oracleResponses[key];
+        emit LogOracleResponseData(responseInfo.requester, 
+            responseInfo.isOpen, 
+            key);
+    }
+
     // Called by oracle when a response is available to an outstanding request
     // For the response to be accepted, there must be a pending request that is open
     // and matches one of the three Indexes randomly assigned to the oracle at the
@@ -275,9 +337,10 @@ contract FlightSuretyApp {
             "Index does not match oracle request");
 
         // Identify the key needed to 
-        bytes32 key = keccak256(abi.encodePacked(index, airline, flight, timestamp)); 
+        //bytes32 key = keccak256(abi.encodePacked(index, airline, flight, timestamp)); 
+        uint256 key = getResponseKey(index, airline, flight, timestamp);
         require(oracleResponses[key].isOpen, "Flight or timestamp do not match oracle request");
-
+        
         // Persist the repsonse in the contract
         oracleResponses[key].responses[statusCode].push(msg.sender);
 
@@ -287,21 +350,33 @@ contract FlightSuretyApp {
 
         // The contract will notify ONLY when there are 3 responses with the same STATUS CODE.
         if (oracleResponses[key].responses[statusCode].length >= MIN_RESPONSES) {
-            // Handle flight status as appropriate
-            //processFlightStatus(airline, flight, timestamp, statusCode);
             
             // Save the flight information for posterity
-            bytes32 flightKey = keccak256(abi.encodePacked(flight, timestamp));
+            //bytes32 flightKey = keccak256(abi.encodePacked(flight, timestamp));
             
             // Prevent any more responses since MIN_RESPONSE threshold has been reached
             oracleResponses[key].isOpen = false;
             
             // Save the filght for posterity. (TODO: check timestamp value)
-            flights[flightKey] = Flight(true, statusCode, timestamp, airline);
+            //flights[flightKey] = Flight(true, statusCode, timestamp, airline);
 
             //Emit Status
             emit FlightStatusInfo(airline, flight, timestamp, statusCode);
         }
+    }
+
+    function getResponseKey
+                        (
+                            uint8 index,
+                            address airline,
+                            string memory flight,
+                            uint256 timestamp
+                        )
+                        pure
+                        public
+                        returns(uint256)
+    {
+        return uint256(keccak256(abi.encodePacked(index, airline, flight, timestamp)));
     }
 
     function getFlightKey
@@ -361,6 +436,13 @@ contract FlightSuretyApp {
         return random;
     }
 
-// endregion
+    function getRequesters() view public returns (address[] memory) {
+        address[] memory all = new address[](requestCount);
+        for(uint i=0;i<requestCount;i++) {
+            ResponseInfo memory ri = oracleResponses[requesterKeys[i]];
+            all[i] = ri.requester;
+        }
+        return all;
+    }
 
 }   
