@@ -7,10 +7,15 @@ pragma solidity ^0.5.16;
 
 import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
 
+import "./core/Ownable.sol";
+import "./accesscontrol/AdminRole.sol";
+import "./accesscontrol/AirlineRole.sol";
+import "./accesscontrol/ConsumerRole.sol";
+
 /************************************************** */
 /* FlightSurety Smart Contract                      */
 /************************************************** */
-contract FlightSuretyApp {
+contract FlightSuretyApp is AdminRole, AirlineRole, ConsumerRole {
     using SafeMath for uint256; // Allow SafeMath functions to be called for all uint256 types (similar to "prototype" in Javascript)
 
     /********************************************************************************************/
@@ -72,8 +77,7 @@ contract FlightSuretyApp {
         uint256 timestamp, 
         uint8 status);
 
-    // todo: Event fired to indicate a response was received
-
+    // TODO: Event fired to indicate a response was received
 
     // Event fired to indicate the callback was invoked
     event OracleReport(
@@ -94,13 +98,6 @@ contract FlightSuretyApp {
     // ------------------------
     uint requestCount = 0;
     
-    event LogKeyValue(bytes32 key);
-
-    event LogOracleResponseData(
-        address requester, 
-        bool isOpen, 
-        uint256 entryKey);
-
     /********************************************************************************************/
     /*                                       FUNCTION MODIFIERS                                 */
     /********************************************************************************************/
@@ -137,10 +134,8 @@ contract FlightSuretyApp {
     * @dev Contract constructor
     *
     */
-    constructor
-                                (
-                                ) 
-                                public 
+    constructor() 
+                public 
     {
         contractOwner = msg.sender;
     }
@@ -305,15 +300,6 @@ contract FlightSuretyApp {
             responseInfo.isOpen,
             key
         );
-    }
-
-    function emitResponseInfo(uint256 key) 
-                        public
-    {
-        ResponseInfo memory responseInfo = oracleResponses[key];
-        emit LogOracleResponseData(responseInfo.requester, 
-            responseInfo.isOpen, 
-            key);
     }
 
     // Called by oracle when a response is available to an outstanding request
