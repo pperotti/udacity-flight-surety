@@ -38,8 +38,8 @@ contract ConsumerRole {
   }
 
   // Define a function 'renounceConsumer' to renounce this role
-  function renounceConsumer() public {
-    _removeConsumer(msg.sender);
+  function removeConsumer(address account) public {
+    _removeConsumer(account);
   }
 
   // Define an internal function '_addConsumer' to add this role, called by 'addConsumer'

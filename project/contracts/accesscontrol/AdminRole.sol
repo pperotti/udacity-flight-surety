@@ -38,8 +38,8 @@ contract AdminRole {
   }
 
   // Define a function 'renounceAdmin' to renounce this role
-  function renounceAdmin() public {
-    _removeAdmin(msg.sender);
+  function removeAdmin(address account) public {
+    _removeAdmin(account);
   }
 
   // Define an internal function '_addAdmin' to add this role, called by 'addAdmin'

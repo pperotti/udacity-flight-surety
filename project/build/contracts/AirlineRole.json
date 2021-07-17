@@ -71,33 +71,39 @@
     },
     {
       "constant": false,
-      "inputs": [],
-      "name": "renounceAirline",
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "removeAirline",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AirlineAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AirlineRemoved\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addAirline\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAirline\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceAirline\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/pperotti/Documents/CURSOS/Udacity/Blockchain developer/Projects/udacity-flight-surety/project/contracts/accesscontrol/AirlineRole.sol\":\"AirlineRole\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/pperotti/Documents/CURSOS/Udacity/Blockchain developer/Projects/udacity-flight-surety/project/contracts/accesscontrol/AirlineRole.sol\":{\"keccak256\":\"0xef3fde2d15ca0b016560d1b68619c78399d802fb07fef687e0006f34bd11007c\",\"urls\":[\"bzz-raw://b4c496ab4a9feb8cdde4d1246c7a467de66b013906b9b87c46675beb89efd003\",\"dweb:/ipfs/QmPpFQAhkGJMMJatXkKsHbZ6fKNiMkMn2uthGTHmrVphev\"]},\"/Users/pperotti/Documents/CURSOS/Udacity/Blockchain developer/Projects/udacity-flight-surety/project/contracts/accesscontrol/Roles.sol\":{\"keccak256\":\"0x0d5cc97cfd6778e2def5d5a764b92e16084ff71c6515e93bb526e69d20394cad\",\"urls\":[\"bzz-raw://b6e0c31097981d2bcde8914b4d52ae0c49703544d68337ad8b4635e0c69c230c\",\"dweb:/ipfs/QmUdoF62Sy4mVbWoh7B2mfBkZg4MwwbtT6MF1HLRzzVtGR\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b506100203361002560201b60201c565b6101c7565b61003d81600061008360201b61026a1790919060201c565b8073ffffffffffffffffffffffffffffffffffffffff167fb55d65ff58a8ae5e1643396e49a8aa01aec7a0766f887812148a230464a41c8f60405160405180910390a250565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614156100bd57600080fd5b6100cd828261013560201b60201c565b156100d757600080fd5b60018260000160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055505050565b60008073ffffffffffffffffffffffffffffffffffffffff168273ffffffffffffffffffffffffffffffffffffffff16141561017057600080fd5b8260000160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16905092915050565b6103f6806101d66000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c80630e248a11146100465780633a0295d1146100a25780634c17241e146100e6575b600080fd5b6100886004803603602081101561005c57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506100f0565b604051808215151515815260200191505060405180910390f35b6100e4600480360360208110156100b857600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061010d565b005b6100ee610119565b005b600061010682600061012490919063ffffffff16565b9050919050565b610116816101b6565b50565b61012233610210565b565b60008073ffffffffffffffffffffffffffffffffffffffff168273ffffffffffffffffffffffffffffffffffffffff16141561015f57600080fd5b8260000160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16905092915050565b6101ca81600061026a90919063ffffffff16565b8073ffffffffffffffffffffffffffffffffffffffff167fb55d65ff58a8ae5e1643396e49a8aa01aec7a0766f887812148a230464a41c8f60405160405180910390a250565b61022481600061031690919063ffffffff16565b8073ffffffffffffffffffffffffffffffffffffffff167f30b877178d01ecce7800e37cb6dfbaad2e641045ee2ba52a50458ca4205bafbf60405160405180910390a250565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614156102a457600080fd5b6102ae8282610124565b156102b857600080fd5b60018260000160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055505050565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141561035057600080fd5b61035a8282610124565b61036357600080fd5b60008260000160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff021916908315150217905550505056fea265627a7a72315820c03822a9f8c8e8b713665a76f5dc3fb812541b3786d1e3e5ba1c312e0098231f64736f6c63430005110032",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100415760003560e01c80630e248a11146100465780633a0295d1146100a25780634c17241e146100e6575b600080fd5b6100886004803603602081101561005c57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506100f0565b604051808215151515815260200191505060405180910390f35b6100e4600480360360208110156100b857600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061010d565b005b6100ee610119565b005b600061010682600061012490919063ffffffff16565b9050919050565b610116816101b6565b50565b61012233610210565b565b60008073ffffffffffffffffffffffffffffffffffffffff168273ffffffffffffffffffffffffffffffffffffffff16141561015f57600080fd5b8260000160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16905092915050565b6101ca81600061026a90919063ffffffff16565b8073ffffffffffffffffffffffffffffffffffffffff167fb55d65ff58a8ae5e1643396e49a8aa01aec7a0766f887812148a230464a41c8f60405160405180910390a250565b61022481600061031690919063ffffffff16565b8073ffffffffffffffffffffffffffffffffffffffff167f30b877178d01ecce7800e37cb6dfbaad2e641045ee2ba52a50458ca4205bafbf60405160405180910390a250565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614156102a457600080fd5b6102ae8282610124565b156102b857600080fd5b60018260000160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055505050565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141561035057600080fd5b61035a8282610124565b61036357600080fd5b60008260000160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff021916908315150217905550505056fea265627a7a72315820c03822a9f8c8e8b713665a76f5dc3fb812541b3786d1e3e5ba1c312e0098231f64736f6c63430005110032",
-  "sourceMap": "166:1529:1:-;;;580:99;8:9:-1;5:2;;;30:1;27;20:12;5:2;580:99:1;651:23;663:10;651:11;;;:23;;:::i;:::-;166:1529;;1361:111;1414:21;1427:7;1414:8;:12;;;;;;:21;;;;:::i;:::-;1459:7;1446:21;;;;;;;;;;;;1361:111;:::o;254:167:4:-;345:1;326:21;;:7;:21;;;;318:30;;;;;;363:18;367:4;373:7;363:3;;;:18;;:::i;:::-;362:19;354:28;;;;;;412:4;389;:11;;:20;401:7;389:20;;;;;;;;;;;;;;;;:27;;;;;;;;;;;;;;;;;;254:167;;:::o;735:166::-;819:4;860:1;841:21;;:7;:21;;;;833:30;;;;;;876:4;:11;;:20;888:7;876:20;;;;;;;;;;;;;;;;;;;;;;;;;869:27;;735:166;;;;:::o;166:1529:1:-;;;;;;;",
-  "deployedSourceMap": "166:1529:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;166:1529:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;893:102;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;893:102:1;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1055:76;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1055:76:1;;;;;;;;;;;;;;;;;;;:::i;:::-;;1198:71;;;:::i;:::-;;893:102;950:4;969:21;982:7;969:8;:12;;:21;;;;:::i;:::-;962:28;;893:102;;;:::o;1055:76::-;1106:20;1118:7;1106:11;:20::i;:::-;1055:76;:::o;1198:71::-;1238:26;1253:10;1238:14;:26::i;:::-;1198:71::o;735:166:4:-;819:4;860:1;841:21;;:7;:21;;;;833:30;;;;;;876:4;:11;;:20;888:7;876:20;;;;;;;;;;;;;;;;;;;;;;;;;869:27;;735:166;;;;:::o;1361:111:1:-;1414:21;1427:7;1414:8;:12;;:21;;;;:::i;:::-;1459:7;1446:21;;;;;;;;;;;;1361:111;:::o;1574:119::-;1630:24;1646:7;1630:8;:15;;:24;;;;:::i;:::-;1680:7;1665:23;;;;;;;;;;;;1574:119;:::o;254:167:4:-;345:1;326:21;;:7;:21;;;;318:30;;;;;;363:18;367:4;373:7;363:3;:18::i;:::-;362:19;354:28;;;;;;412:4;389;:11;;:20;401:7;389:20;;;;;;;;;;;;;;;;:27;;;;;;;;;;;;;;;;;;254:167;;:::o;487:170::-;581:1;562:21;;:7;:21;;;;554:30;;;;;;598:18;602:4;608:7;598:3;:18::i;:::-;590:27;;;;;;647:5;624:4;:11;;:20;636:7;624:20;;;;;;;;;;;;;;;;:28;;;;;;;;;;;;;;;;;;487:170;;:::o",
-  "source": "pragma solidity ^0.5.16; //0.4.24;\n\n// Import the library 'Roles'\nimport \"./Roles.sol\";\n\n// Define a contract 'ConsumerRole' to manage this role - add, remove, check\ncontract AirlineRole {\n\n  using Roles for Roles.Role; \n\n  // Define 2 events, one for Adding, and other for Removing\n  event AirlineAdded(address indexed account);\n  event AirlineRemoved(address indexed account);\n\n  // Define a struct 'consumers' by inheriting from 'Roles' library, struct Role\n  Roles.Role private airlines;\n\n  // In the constructor make the address that deploys this contract the 1st consumer\n  constructor() public {\n    //TODO: Check if this is really needed?\n    _addAirline(msg.sender);\n  }\n\n  // Define a modifier that checks to see if msg.sender has the appropriate role\n  modifier onlyAirline() {\n    require(isAirline(msg.sender));\n    _;\n  }\n\n  // Define a function 'isAirline' to check this role\n  function isAirline(address account) public view returns (bool) {\n    return airlines.has(account);\n  }\n\n  // Define a function 'addAirline' that adds this role\n  function addAirline(address account) public  {\n    _addAirline(account);\n  }\n\n  // Define a function 'renounceAirline' to renounce this role\n  function renounceAirline() public {\n    _removeAirline(msg.sender);\n  }\n\n  // Define an internal function '_addAirline' to add this role, called by 'addAirline'\n  function _addAirline(address account) internal {\n    airlines.add(account);\n    emit AirlineAdded(account);\n  }\n\n  // Define an internal function '_removeAirline' to remove this role, called by '_removeAirline'\n  function _removeAirline(address account) internal {\n    airlines.remove(account);\n    emit AirlineRemoved(account);\n  }\n}",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AirlineAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AirlineRemoved\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addAirline\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAirline\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"removeAirline\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/pperotti/Documents/CURSOS/Udacity/Blockchain developer/Projects/udacity-flight-surety/project/contracts/accesscontrol/AirlineRole.sol\":\"AirlineRole\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/pperotti/Documents/CURSOS/Udacity/Blockchain developer/Projects/udacity-flight-surety/project/contracts/accesscontrol/AirlineRole.sol\":{\"keccak256\":\"0x7236d4bc920adcd4ec005b047b071f5cb06c7da812321df7fbb7d81ec7f60ad8\",\"urls\":[\"bzz-raw://fa8d669269e61aaab56d7824843f036ef1fa788781fa0d4b6d30ed71be7a47b2\",\"dweb:/ipfs/QmSaJXbtnRaTfL95fsjLm8LeeWY1ZH6DbkZJnDffNwNZcy\"]},\"/Users/pperotti/Documents/CURSOS/Udacity/Blockchain developer/Projects/udacity-flight-surety/project/contracts/accesscontrol/Roles.sol\":{\"keccak256\":\"0x0d5cc97cfd6778e2def5d5a764b92e16084ff71c6515e93bb526e69d20394cad\",\"urls\":[\"bzz-raw://b6e0c31097981d2bcde8914b4d52ae0c49703544d68337ad8b4635e0c69c230c\",\"dweb:/ipfs/QmUdoF62Sy4mVbWoh7B2mfBkZg4MwwbtT6MF1HLRzzVtGR\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506100203361002560201b60201c565b6101c7565b61003d81600061008360201b6102a51790919060201c565b8073ffffffffffffffffffffffffffffffffffffffff167fb55d65ff58a8ae5e1643396e49a8aa01aec7a0766f887812148a230464a41c8f60405160405180910390a250565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614156100bd57600080fd5b6100cd828261013560201b60201c565b156100d757600080fd5b60018260000160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055505050565b60008073ffffffffffffffffffffffffffffffffffffffff168273ffffffffffffffffffffffffffffffffffffffff16141561017057600080fd5b8260000160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16905092915050565b610431806101d66000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c80630e248a11146100465780633a0295d1146100a2578063a4945e84146100e6575b600080fd5b6100886004803603602081101561005c57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061012a565b604051808215151515815260200191505060405180910390f35b6100e4600480360360208110156100b857600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610147565b005b610128600480360360208110156100fc57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610153565b005b600061014082600061015f90919063ffffffff16565b9050919050565b610150816101f1565b50565b61015c8161024b565b50565b60008073ffffffffffffffffffffffffffffffffffffffff168273ffffffffffffffffffffffffffffffffffffffff16141561019a57600080fd5b8260000160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16905092915050565b6102058160006102a590919063ffffffff16565b8073ffffffffffffffffffffffffffffffffffffffff167fb55d65ff58a8ae5e1643396e49a8aa01aec7a0766f887812148a230464a41c8f60405160405180910390a250565b61025f81600061035190919063ffffffff16565b8073ffffffffffffffffffffffffffffffffffffffff167f30b877178d01ecce7800e37cb6dfbaad2e641045ee2ba52a50458ca4205bafbf60405160405180910390a250565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614156102df57600080fd5b6102e9828261015f565b156102f357600080fd5b60018260000160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055505050565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141561038b57600080fd5b610395828261015f565b61039e57600080fd5b60008260000160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff021916908315150217905550505056fea265627a7a72315820cce763e2c8689a9cea3f734976b495feebd6b25b97672aa2f022b8624a41857864736f6c63430005110032",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100415760003560e01c80630e248a11146100465780633a0295d1146100a2578063a4945e84146100e6575b600080fd5b6100886004803603602081101561005c57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061012a565b604051808215151515815260200191505060405180910390f35b6100e4600480360360208110156100b857600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610147565b005b610128600480360360208110156100fc57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610153565b005b600061014082600061015f90919063ffffffff16565b9050919050565b610150816101f1565b50565b61015c8161024b565b50565b60008073ffffffffffffffffffffffffffffffffffffffff168273ffffffffffffffffffffffffffffffffffffffff16141561019a57600080fd5b8260000160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16905092915050565b6102058160006102a590919063ffffffff16565b8073ffffffffffffffffffffffffffffffffffffffff167fb55d65ff58a8ae5e1643396e49a8aa01aec7a0766f887812148a230464a41c8f60405160405180910390a250565b61025f81600061035190919063ffffffff16565b8073ffffffffffffffffffffffffffffffffffffffff167f30b877178d01ecce7800e37cb6dfbaad2e641045ee2ba52a50458ca4205bafbf60405160405180910390a250565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614156102df57600080fd5b6102e9828261015f565b156102f357600080fd5b60018260000160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055505050565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141561038b57600080fd5b610395828261015f565b61039e57600080fd5b60008260000160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff021916908315150217905550505056fea265627a7a72315820cce763e2c8689a9cea3f734976b495feebd6b25b97672aa2f022b8624a41857864736f6c63430005110032",
+  "sourceMap": "166:1539:2:-;;;580:99;8:9:-1;5:2;;;30:1;27;20:12;5:2;580:99:2;651:23;663:10;651:11;;;:23;;:::i;:::-;166:1539;;1371:111;1424:21;1437:7;1424:8;:12;;;;;;:21;;;;:::i;:::-;1469:7;1456:21;;;;;;;;;;;;1371:111;:::o;254:167:4:-;345:1;326:21;;:7;:21;;;;318:30;;;;;;363:18;367:4;373:7;363:3;;;:18;;:::i;:::-;362:19;354:28;;;;;;412:4;389;:11;;:20;401:7;389:20;;;;;;;;;;;;;;;;:27;;;;;;;;;;;;;;;;;;254:167;;:::o;735:166::-;819:4;860:1;841:21;;:7;:21;;;;833:30;;;;;;876:4;:11;;:20;888:7;876:20;;;;;;;;;;;;;;;;;;;;;;;;;869:27;;735:166;;;;:::o;166:1539:2:-;;;;;;;",
+  "deployedSourceMap": "166:1539:2:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;166:1539:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;893:102;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;893:102:2;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1055:76;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1055:76:2;;;;;;;;;;;;;;;;;;;:::i;:::-;;1198:81;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1198:81:2;;;;;;;;;;;;;;;;;;;:::i;:::-;;893:102;950:4;969:21;982:7;969:8;:12;;:21;;;;:::i;:::-;962:28;;893:102;;;:::o;1055:76::-;1106:20;1118:7;1106:11;:20::i;:::-;1055:76;:::o;1198:81::-;1251:23;1266:7;1251:14;:23::i;:::-;1198:81;:::o;735:166:4:-;819:4;860:1;841:21;;:7;:21;;;;833:30;;;;;;876:4;:11;;:20;888:7;876:20;;;;;;;;;;;;;;;;;;;;;;;;;869:27;;735:166;;;;:::o;1371:111:2:-;1424:21;1437:7;1424:8;:12;;:21;;;;:::i;:::-;1469:7;1456:21;;;;;;;;;;;;1371:111;:::o;1584:119::-;1640:24;1656:7;1640:8;:15;;:24;;;;:::i;:::-;1690:7;1675:23;;;;;;;;;;;;1584:119;:::o;254:167:4:-;345:1;326:21;;:7;:21;;;;318:30;;;;;;363:18;367:4;373:7;363:3;:18::i;:::-;362:19;354:28;;;;;;412:4;389;:11;;:20;401:7;389:20;;;;;;;;;;;;;;;;:27;;;;;;;;;;;;;;;;;;254:167;;:::o;487:170::-;581:1;562:21;;:7;:21;;;;554:30;;;;;;598:18;602:4;608:7;598:3;:18::i;:::-;590:27;;;;;;647:5;624:4;:11;;:20;636:7;624:20;;;;;;;;;;;;;;;;:28;;;;;;;;;;;;;;;;;;487:170;;:::o",
+  "source": "pragma solidity ^0.5.16; //0.4.24;\n\n// Import the library 'Roles'\nimport \"./Roles.sol\";\n\n// Define a contract 'ConsumerRole' to manage this role - add, remove, check\ncontract AirlineRole {\n\n  using Roles for Roles.Role; \n\n  // Define 2 events, one for Adding, and other for Removing\n  event AirlineAdded(address indexed account);\n  event AirlineRemoved(address indexed account);\n\n  // Define a struct 'consumers' by inheriting from 'Roles' library, struct Role\n  Roles.Role private airlines;\n\n  // In the constructor make the address that deploys this contract the 1st consumer\n  constructor() public {\n    //TODO: Check if this is really needed?\n    _addAirline(msg.sender);\n  }\n\n  // Define a modifier that checks to see if msg.sender has the appropriate role\n  modifier onlyAirline() {\n    require(isAirline(msg.sender));\n    _;\n  }\n\n  // Define a function 'isAirline' to check this role\n  function isAirline(address account) public view returns (bool) {\n    return airlines.has(account);\n  }\n\n  // Define a function 'addAirline' that adds this role\n  function addAirline(address account) public  {\n    _addAirline(account);\n  }\n\n  // Define a function 'renounceAirline' to renounce this role\n  function removeAirline(address account) public {\n    _removeAirline(account);\n  }\n\n  // Define an internal function '_addAirline' to add this role, called by 'addAirline'\n  function _addAirline(address account) internal {\n    airlines.add(account);\n    emit AirlineAdded(account);\n  }\n\n  // Define an internal function '_removeAirline' to remove this role, called by '_removeAirline'\n  function _removeAirline(address account) internal {\n    airlines.remove(account);\n    emit AirlineRemoved(account);\n  }\n}",
   "sourcePath": "/Users/pperotti/Documents/CURSOS/Udacity/Blockchain developer/Projects/udacity-flight-surety/project/contracts/accesscontrol/AirlineRole.sol",
   "ast": {
     "absolutePath": "/Users/pperotti/Documents/CURSOS/Udacity/Blockchain developer/Projects/udacity-flight-surety/project/contracts/accesscontrol/AirlineRole.sol",
     "exportedSymbols": {
       "AirlineRole": [
-        782
+        895
       ]
     },
-    "id": 783,
+    "id": 896,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 683,
+        "id": 795,
         "literals": [
           "solidity",
           "^",
@@ -105,16 +111,16 @@
           ".16"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:1"
+        "src": "0:24:2"
       },
       {
         "absolutePath": "/Users/pperotti/Documents/CURSOS/Udacity/Blockchain developer/Projects/udacity-flight-surety/project/contracts/accesscontrol/Roles.sol",
         "file": "./Roles.sol",
-        "id": 684,
+        "id": 796,
         "nodeType": "ImportDirective",
-        "scope": 783,
-        "sourceUnit": 1079,
-        "src": "66:21:1",
+        "scope": 896,
+        "sourceUnit": 1092,
+        "src": "66:21:2",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -124,38 +130,38 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 782,
+        "id": 895,
         "linearizedBaseContracts": [
-          782
+          895
         ],
         "name": "AirlineRole",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "id": 687,
+            "id": 799,
             "libraryName": {
               "contractScope": null,
-              "id": 685,
+              "id": 797,
               "name": "Roles",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1078,
-              "src": "198:5:1",
+              "referencedDeclaration": 1091,
+              "src": "198:5:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Roles_$1078",
+                "typeIdentifier": "t_contract$_Roles_$1091",
                 "typeString": "library Roles"
               }
             },
             "nodeType": "UsingForDirective",
-            "src": "192:27:1",
+            "src": "192:27:2",
             "typeName": {
               "contractScope": null,
-              "id": 686,
+              "id": 798,
               "name": "Roles.Role",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 991,
-              "src": "208:10:1",
+              "referencedDeclaration": 1004,
+              "src": "208:10:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_Role_$991_storage_ptr",
+                "typeIdentifier": "t_struct$_Role_$1004_storage_ptr",
                 "typeString": "struct Roles.Role"
               }
             }
@@ -163,21 +169,21 @@
           {
             "anonymous": false,
             "documentation": null,
-            "id": 691,
+            "id": 803,
             "name": "AirlineAdded",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 690,
+              "id": 802,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 689,
+                  "id": 801,
                   "indexed": true,
                   "name": "account",
                   "nodeType": "VariableDeclaration",
-                  "scope": 691,
-                  "src": "304:23:1",
+                  "scope": 803,
+                  "src": "304:23:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -185,10 +191,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 688,
+                    "id": 800,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "304:7:1",
+                    "src": "304:7:2",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -199,28 +205,28 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "303:25:1"
+              "src": "303:25:2"
             },
-            "src": "285:44:1"
+            "src": "285:44:2"
           },
           {
             "anonymous": false,
             "documentation": null,
-            "id": 695,
+            "id": 807,
             "name": "AirlineRemoved",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 694,
+              "id": 806,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 693,
+                  "id": 805,
                   "indexed": true,
                   "name": "account",
                   "nodeType": "VariableDeclaration",
-                  "scope": 695,
-                  "src": "353:23:1",
+                  "scope": 807,
+                  "src": "353:23:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -228,10 +234,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 692,
+                    "id": 804,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "353:7:1",
+                    "src": "353:7:2",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -242,32 +248,32 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "352:25:1"
+              "src": "352:25:2"
             },
-            "src": "332:46:1"
+            "src": "332:46:2"
           },
           {
             "constant": false,
-            "id": 697,
+            "id": 809,
             "name": "airlines",
             "nodeType": "VariableDeclaration",
-            "scope": 782,
-            "src": "463:27:1",
+            "scope": 895,
+            "src": "463:27:2",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_struct$_Role_$991_storage",
+              "typeIdentifier": "t_struct$_Role_$1004_storage",
               "typeString": "struct Roles.Role"
             },
             "typeName": {
               "contractScope": null,
-              "id": 696,
+              "id": 808,
               "name": "Roles.Role",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 991,
-              "src": "463:10:1",
+              "referencedDeclaration": 1004,
+              "src": "463:10:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_Role_$991_storage_ptr",
+                "typeIdentifier": "t_struct$_Role_$1004_storage_ptr",
                 "typeString": "struct Roles.Role"
               }
             },
@@ -276,9 +282,9 @@
           },
           {
             "body": {
-              "id": 705,
+              "id": 817,
               "nodeType": "Block",
-              "src": "601:78:1",
+              "src": "601:78:2",
               "statements": [
                 {
                   "expression": {
@@ -288,18 +294,18 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 701,
+                          "id": 813,
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1296,
-                          "src": "663:3:1",
+                          "referencedDeclaration": 1309,
+                          "src": "663:3:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
                             "typeString": "msg"
                           }
                         },
-                        "id": 702,
+                        "id": 814,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -307,7 +313,7 @@
                         "memberName": "sender",
                         "nodeType": "MemberAccess",
                         "referencedDeclaration": null,
-                        "src": "663:10:1",
+                        "src": "663:10:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address_payable",
                           "typeString": "address payable"
@@ -321,18 +327,18 @@
                           "typeString": "address payable"
                         }
                       ],
-                      "id": 700,
+                      "id": 812,
                       "name": "_addAirline",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 765,
-                      "src": "651:11:1",
+                      "referencedDeclaration": 878,
+                      "src": "651:11:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_address_$returns$__$",
                         "typeString": "function (address)"
                       }
                     },
-                    "id": 703,
+                    "id": 815,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -340,48 +346,48 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "651:23:1",
+                    "src": "651:23:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 704,
+                  "id": 816,
                   "nodeType": "ExpressionStatement",
-                  "src": "651:23:1"
+                  "src": "651:23:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 706,
+            "id": 818,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 698,
+              "id": 810,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "591:2:1"
+              "src": "591:2:2"
             },
             "returnParameters": {
-              "id": 699,
+              "id": 811,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "601:0:1"
+              "src": "601:0:2"
             },
-            "scope": 782,
-            "src": "580:99:1",
+            "scope": 895,
+            "src": "580:99:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 716,
+              "id": 828,
               "nodeType": "Block",
-              "src": "787:48:1",
+              "src": "787:48:2",
               "statements": [
                 {
                   "expression": {
@@ -394,18 +400,18 @@
                             "argumentTypes": null,
                             "expression": {
                               "argumentTypes": null,
-                              "id": 710,
+                              "id": 822,
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1296,
-                              "src": "811:3:1",
+                              "referencedDeclaration": 1309,
+                              "src": "811:3:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
                                 "typeString": "msg"
                               }
                             },
-                            "id": 711,
+                            "id": 823,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -413,7 +419,7 @@
                             "memberName": "sender",
                             "nodeType": "MemberAccess",
                             "referencedDeclaration": null,
-                            "src": "811:10:1",
+                            "src": "811:10:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address_payable",
                               "typeString": "address payable"
@@ -427,18 +433,18 @@
                               "typeString": "address payable"
                             }
                           ],
-                          "id": 709,
+                          "id": 821,
                           "name": "isAirline",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 730,
-                          "src": "801:9:1",
+                          "referencedDeclaration": 842,
+                          "src": "801:9:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_view$_t_address_$returns$_t_bool_$",
                             "typeString": "function (address) view returns (bool)"
                           }
                         },
-                        "id": 712,
+                        "id": 824,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -446,7 +452,7 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "801:21:1",
+                        "src": "801:21:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
@@ -460,21 +466,21 @@
                           "typeString": "bool"
                         }
                       ],
-                      "id": 708,
+                      "id": 820,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1299,
-                        1300
+                        1312,
+                        1313
                       ],
-                      "referencedDeclaration": 1299,
-                      "src": "793:7:1",
+                      "referencedDeclaration": 1312,
+                      "src": "793:7:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
                         "typeString": "function (bool) pure"
                       }
                     },
-                    "id": 713,
+                    "id": 825,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -482,41 +488,41 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "793:30:1",
+                    "src": "793:30:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 714,
+                  "id": 826,
                   "nodeType": "ExpressionStatement",
-                  "src": "793:30:1"
+                  "src": "793:30:2"
                 },
                 {
-                  "id": 715,
+                  "id": 827,
                   "nodeType": "PlaceholderStatement",
-                  "src": "829:1:1"
+                  "src": "829:1:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 717,
+            "id": 829,
             "name": "onlyAirline",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 707,
+              "id": 819,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "784:2:1"
+              "src": "784:2:2"
             },
-            "src": "764:71:1",
+            "src": "764:71:2",
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 729,
+              "id": 841,
               "nodeType": "Block",
-              "src": "956:39:1",
+              "src": "956:39:2",
               "statements": [
                 {
                   "expression": {
@@ -524,12 +530,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 726,
+                        "id": 838,
                         "name": "account",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 719,
-                        "src": "982:7:1",
+                        "referencedDeclaration": 831,
+                        "src": "982:7:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -545,32 +551,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 724,
+                        "id": 836,
                         "name": "airlines",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 697,
-                        "src": "969:8:1",
+                        "referencedDeclaration": 809,
+                        "src": "969:8:2",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Role_$991_storage",
+                          "typeIdentifier": "t_struct$_Role_$1004_storage",
                           "typeString": "struct Roles.Role storage ref"
                         }
                       },
-                      "id": 725,
+                      "id": 837,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "has",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1077,
-                      "src": "969:12:1",
+                      "referencedDeclaration": 1090,
+                      "src": "969:12:2",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_view$_t_struct$_Role_$991_storage_ptr_$_t_address_$returns$_t_bool_$bound_to$_t_struct$_Role_$991_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_Role_$1004_storage_ptr_$_t_address_$returns$_t_bool_$bound_to$_t_struct$_Role_$1004_storage_ptr_$",
                         "typeString": "function (struct Roles.Role storage pointer,address) view returns (bool)"
                       }
                     },
-                    "id": 727,
+                    "id": 839,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -578,37 +584,37 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "969:21:1",
+                    "src": "969:21:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 723,
-                  "id": 728,
+                  "functionReturnParameters": 835,
+                  "id": 840,
                   "nodeType": "Return",
-                  "src": "962:28:1"
+                  "src": "962:28:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 730,
+            "id": 842,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "isAirline",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 720,
+              "id": 832,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 719,
+                  "id": 831,
                   "name": "account",
                   "nodeType": "VariableDeclaration",
-                  "scope": 730,
-                  "src": "912:15:1",
+                  "scope": 842,
+                  "src": "912:15:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -616,10 +622,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 718,
+                    "id": 830,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "912:7:1",
+                    "src": "912:7:2",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -630,19 +636,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "911:17:1"
+              "src": "911:17:2"
             },
             "returnParameters": {
-              "id": 723,
+              "id": 835,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 722,
+                  "id": 834,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 730,
-                  "src": "950:4:1",
+                  "scope": 842,
+                  "src": "950:4:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -650,10 +656,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 721,
+                    "id": 833,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "950:4:1",
+                    "src": "950:4:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -663,19 +669,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "949:6:1"
+              "src": "949:6:2"
             },
-            "scope": 782,
-            "src": "893:102:1",
+            "scope": 895,
+            "src": "893:102:2",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 739,
+              "id": 851,
               "nodeType": "Block",
-              "src": "1100:31:1",
+              "src": "1100:31:2",
               "statements": [
                 {
                   "expression": {
@@ -683,12 +689,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 736,
+                        "id": 848,
                         "name": "account",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 732,
-                        "src": "1118:7:1",
+                        "referencedDeclaration": 844,
+                        "src": "1118:7:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -702,18 +708,18 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 735,
+                      "id": 847,
                       "name": "_addAirline",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 765,
-                      "src": "1106:11:1",
+                      "referencedDeclaration": 878,
+                      "src": "1106:11:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_address_$returns$__$",
                         "typeString": "function (address)"
                       }
                     },
-                    "id": 737,
+                    "id": 849,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -721,36 +727,36 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1106:20:1",
+                    "src": "1106:20:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 738,
+                  "id": 850,
                   "nodeType": "ExpressionStatement",
-                  "src": "1106:20:1"
+                  "src": "1106:20:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 740,
+            "id": 852,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "addAirline",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 733,
+              "id": 845,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 732,
+                  "id": 844,
                   "name": "account",
                   "nodeType": "VariableDeclaration",
-                  "scope": 740,
-                  "src": "1075:15:1",
+                  "scope": 852,
+                  "src": "1075:15:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -758,10 +764,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 731,
+                    "id": 843,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1075:7:1",
+                    "src": "1075:7:2",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -772,25 +778,25 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1074:17:1"
+              "src": "1074:17:2"
             },
             "returnParameters": {
-              "id": 734,
+              "id": 846,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1100:0:1"
+              "src": "1100:0:2"
             },
-            "scope": 782,
-            "src": "1055:76:1",
+            "scope": 895,
+            "src": "1055:76:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 748,
+              "id": 861,
               "nodeType": "Block",
-              "src": "1232:37:1",
+              "src": "1245:34:2",
               "statements": [
                 {
                   "expression": {
@@ -798,53 +804,37 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "expression": {
-                          "argumentTypes": null,
-                          "id": 744,
-                          "name": "msg",
-                          "nodeType": "Identifier",
-                          "overloadedDeclarations": [],
-                          "referencedDeclaration": 1296,
-                          "src": "1253:3:1",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_magic_message",
-                            "typeString": "msg"
-                          }
-                        },
-                        "id": 745,
-                        "isConstant": false,
-                        "isLValue": false,
-                        "isPure": false,
-                        "lValueRequested": false,
-                        "memberName": "sender",
-                        "nodeType": "MemberAccess",
-                        "referencedDeclaration": null,
-                        "src": "1253:10:1",
+                        "id": 858,
+                        "name": "account",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 854,
+                        "src": "1266:7:2",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_address_payable",
-                          "typeString": "address payable"
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
                         }
                       }
                     ],
                     "expression": {
                       "argumentTypes": [
                         {
-                          "typeIdentifier": "t_address_payable",
-                          "typeString": "address payable"
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
                         }
                       ],
-                      "id": 743,
+                      "id": 857,
                       "name": "_removeAirline",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 781,
-                      "src": "1238:14:1",
+                      "referencedDeclaration": 894,
+                      "src": "1251:14:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_address_$returns$__$",
                         "typeString": "function (address)"
                       }
                     },
-                    "id": 746,
+                    "id": 859,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -852,48 +842,76 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1238:26:1",
+                    "src": "1251:23:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 747,
+                  "id": 860,
                   "nodeType": "ExpressionStatement",
-                  "src": "1238:26:1"
+                  "src": "1251:23:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 749,
+            "id": 862,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
-            "name": "renounceAirline",
+            "name": "removeAirline",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 741,
+              "id": 855,
               "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "1222:2:1"
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 854,
+                  "name": "account",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 862,
+                  "src": "1221:15:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 853,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1221:7:2",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1220:17:2"
             },
             "returnParameters": {
-              "id": 742,
+              "id": 856,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1232:0:1"
+              "src": "1245:0:2"
             },
-            "scope": 782,
-            "src": "1198:71:1",
+            "scope": 895,
+            "src": "1198:81:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 764,
+              "id": 877,
               "nodeType": "Block",
-              "src": "1408:64:1",
+              "src": "1418:64:2",
               "statements": [
                 {
                   "expression": {
@@ -901,12 +919,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 757,
+                        "id": 870,
                         "name": "account",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 751,
-                        "src": "1427:7:1",
+                        "referencedDeclaration": 864,
+                        "src": "1437:7:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -922,32 +940,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 754,
+                        "id": 867,
                         "name": "airlines",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 697,
-                        "src": "1414:8:1",
+                        "referencedDeclaration": 809,
+                        "src": "1424:8:2",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Role_$991_storage",
+                          "typeIdentifier": "t_struct$_Role_$1004_storage",
                           "typeString": "struct Roles.Role storage ref"
                         }
                       },
-                      "id": 756,
+                      "id": 869,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "add",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1023,
-                      "src": "1414:12:1",
+                      "referencedDeclaration": 1036,
+                      "src": "1424:12:2",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Role_$991_storage_ptr_$_t_address_$returns$__$bound_to$_t_struct$_Role_$991_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Role_$1004_storage_ptr_$_t_address_$returns$__$bound_to$_t_struct$_Role_$1004_storage_ptr_$",
                         "typeString": "function (struct Roles.Role storage pointer,address)"
                       }
                     },
-                    "id": 758,
+                    "id": 871,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -955,15 +973,15 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1414:21:1",
+                    "src": "1424:21:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 759,
+                  "id": 872,
                   "nodeType": "ExpressionStatement",
-                  "src": "1414:21:1"
+                  "src": "1424:21:2"
                 },
                 {
                   "eventCall": {
@@ -971,12 +989,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 761,
+                        "id": 874,
                         "name": "account",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 751,
-                        "src": "1459:7:1",
+                        "referencedDeclaration": 864,
+                        "src": "1469:7:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -990,18 +1008,18 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 760,
+                      "id": 873,
                       "name": "AirlineAdded",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 691,
-                      "src": "1446:12:1",
+                      "referencedDeclaration": 803,
+                      "src": "1456:12:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$returns$__$",
                         "typeString": "function (address)"
                       }
                     },
-                    "id": 762,
+                    "id": 875,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1009,36 +1027,36 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1446:21:1",
+                    "src": "1456:21:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 763,
+                  "id": 876,
                   "nodeType": "EmitStatement",
-                  "src": "1441:26:1"
+                  "src": "1451:26:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 765,
+            "id": 878,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "_addAirline",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 752,
+              "id": 865,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 751,
+                  "id": 864,
                   "name": "account",
                   "nodeType": "VariableDeclaration",
-                  "scope": 765,
-                  "src": "1382:15:1",
+                  "scope": 878,
+                  "src": "1392:15:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1046,10 +1064,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 750,
+                    "id": 863,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1382:7:1",
+                    "src": "1392:7:2",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1060,25 +1078,25 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1381:17:1"
+              "src": "1391:17:2"
             },
             "returnParameters": {
-              "id": 753,
+              "id": 866,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1408:0:1"
+              "src": "1418:0:2"
             },
-            "scope": 782,
-            "src": "1361:111:1",
+            "scope": 895,
+            "src": "1371:111:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 780,
+              "id": 893,
               "nodeType": "Block",
-              "src": "1624:69:1",
+              "src": "1634:69:2",
               "statements": [
                 {
                   "expression": {
@@ -1086,12 +1104,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 773,
+                        "id": 886,
                         "name": "account",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 767,
-                        "src": "1646:7:1",
+                        "referencedDeclaration": 880,
+                        "src": "1656:7:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -1107,32 +1125,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 770,
+                        "id": 883,
                         "name": "airlines",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 697,
-                        "src": "1630:8:1",
+                        "referencedDeclaration": 809,
+                        "src": "1640:8:2",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Role_$991_storage",
+                          "typeIdentifier": "t_struct$_Role_$1004_storage",
                           "typeString": "struct Roles.Role storage ref"
                         }
                       },
-                      "id": 772,
+                      "id": 885,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "remove",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1054,
-                      "src": "1630:15:1",
+                      "referencedDeclaration": 1067,
+                      "src": "1640:15:2",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Role_$991_storage_ptr_$_t_address_$returns$__$bound_to$_t_struct$_Role_$991_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Role_$1004_storage_ptr_$_t_address_$returns$__$bound_to$_t_struct$_Role_$1004_storage_ptr_$",
                         "typeString": "function (struct Roles.Role storage pointer,address)"
                       }
                     },
-                    "id": 774,
+                    "id": 887,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1140,15 +1158,15 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1630:24:1",
+                    "src": "1640:24:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 775,
+                  "id": 888,
                   "nodeType": "ExpressionStatement",
-                  "src": "1630:24:1"
+                  "src": "1640:24:2"
                 },
                 {
                   "eventCall": {
@@ -1156,12 +1174,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 777,
+                        "id": 890,
                         "name": "account",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 767,
-                        "src": "1680:7:1",
+                        "referencedDeclaration": 880,
+                        "src": "1690:7:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -1175,18 +1193,18 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 776,
+                      "id": 889,
                       "name": "AirlineRemoved",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 695,
-                      "src": "1665:14:1",
+                      "referencedDeclaration": 807,
+                      "src": "1675:14:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$returns$__$",
                         "typeString": "function (address)"
                       }
                     },
-                    "id": 778,
+                    "id": 891,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1194,36 +1212,36 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1665:23:1",
+                    "src": "1675:23:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 779,
+                  "id": 892,
                   "nodeType": "EmitStatement",
-                  "src": "1660:28:1"
+                  "src": "1670:28:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 781,
+            "id": 894,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "_removeAirline",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 768,
+              "id": 881,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 767,
+                  "id": 880,
                   "name": "account",
                   "nodeType": "VariableDeclaration",
-                  "scope": 781,
-                  "src": "1598:15:1",
+                  "scope": 894,
+                  "src": "1608:15:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1231,10 +1249,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 766,
+                    "id": 879,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1598:7:1",
+                    "src": "1608:7:2",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1245,33 +1263,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1597:17:1"
+              "src": "1607:17:2"
             },
             "returnParameters": {
-              "id": 769,
+              "id": 882,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1624:0:1"
+              "src": "1634:0:2"
             },
-            "scope": 782,
-            "src": "1574:119:1",
+            "scope": 895,
+            "src": "1584:119:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "internal"
           }
         ],
-        "scope": 783,
-        "src": "166:1529:1"
+        "scope": 896,
+        "src": "166:1539:2"
       }
     ],
-    "src": "0:1695:1"
+    "src": "0:1705:2"
   },
   "legacyAST": {
     "attributes": {
       "absolutePath": "/Users/pperotti/Documents/CURSOS/Udacity/Blockchain developer/Projects/udacity-flight-surety/project/contracts/accesscontrol/AirlineRole.sol",
       "exportedSymbols": {
         "AirlineRole": [
-          782
+          895
         ]
       }
     },
@@ -1285,24 +1303,24 @@
             ".16"
           ]
         },
-        "id": 683,
+        "id": 795,
         "name": "PragmaDirective",
-        "src": "0:24:1"
+        "src": "0:24:2"
       },
       {
         "attributes": {
-          "SourceUnit": 1079,
+          "SourceUnit": 1092,
           "absolutePath": "/Users/pperotti/Documents/CURSOS/Udacity/Blockchain developer/Projects/udacity-flight-surety/project/contracts/accesscontrol/Roles.sol",
           "file": "./Roles.sol",
-          "scope": 783,
+          "scope": 896,
           "symbolAliases": [
             null
           ],
           "unitAlias": ""
         },
-        "id": 684,
+        "id": 796,
         "name": "ImportDirective",
-        "src": "66:21:1"
+        "src": "66:21:2"
       },
       {
         "attributes": {
@@ -1316,10 +1334,10 @@
           "documentation": null,
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            782
+            895
           ],
           "name": "AirlineRole",
-          "scope": 783
+          "scope": 896
         },
         "children": [
           {
@@ -1328,28 +1346,28 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "Roles",
-                  "referencedDeclaration": 1078,
+                  "referencedDeclaration": 1091,
                   "type": "library Roles"
                 },
-                "id": 685,
+                "id": 797,
                 "name": "UserDefinedTypeName",
-                "src": "198:5:1"
+                "src": "198:5:2"
               },
               {
                 "attributes": {
                   "contractScope": null,
                   "name": "Roles.Role",
-                  "referencedDeclaration": 991,
+                  "referencedDeclaration": 1004,
                   "type": "struct Roles.Role"
                 },
-                "id": 686,
+                "id": 798,
                 "name": "UserDefinedTypeName",
-                "src": "208:10:1"
+                "src": "208:10:2"
               }
             ],
-            "id": 687,
+            "id": 799,
             "name": "UsingForDirective",
-            "src": "192:27:1"
+            "src": "192:27:2"
           },
           {
             "attributes": {
@@ -1365,7 +1383,7 @@
                       "constant": false,
                       "indexed": true,
                       "name": "account",
-                      "scope": 691,
+                      "scope": 803,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -1379,24 +1397,24 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 688,
+                        "id": 800,
                         "name": "ElementaryTypeName",
-                        "src": "304:7:1"
+                        "src": "304:7:2"
                       }
                     ],
-                    "id": 689,
+                    "id": 801,
                     "name": "VariableDeclaration",
-                    "src": "304:23:1"
+                    "src": "304:23:2"
                   }
                 ],
-                "id": 690,
+                "id": 802,
                 "name": "ParameterList",
-                "src": "303:25:1"
+                "src": "303:25:2"
               }
             ],
-            "id": 691,
+            "id": 803,
             "name": "EventDefinition",
-            "src": "285:44:1"
+            "src": "285:44:2"
           },
           {
             "attributes": {
@@ -1412,7 +1430,7 @@
                       "constant": false,
                       "indexed": true,
                       "name": "account",
-                      "scope": 695,
+                      "scope": 807,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -1426,30 +1444,30 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 692,
+                        "id": 804,
                         "name": "ElementaryTypeName",
-                        "src": "353:7:1"
+                        "src": "353:7:2"
                       }
                     ],
-                    "id": 693,
+                    "id": 805,
                     "name": "VariableDeclaration",
-                    "src": "353:23:1"
+                    "src": "353:23:2"
                   }
                 ],
-                "id": 694,
+                "id": 806,
                 "name": "ParameterList",
-                "src": "352:25:1"
+                "src": "352:25:2"
               }
             ],
-            "id": 695,
+            "id": 807,
             "name": "EventDefinition",
-            "src": "332:46:1"
+            "src": "332:46:2"
           },
           {
             "attributes": {
               "constant": false,
               "name": "airlines",
-              "scope": 782,
+              "scope": 895,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "struct Roles.Role",
@@ -1461,17 +1479,17 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "Roles.Role",
-                  "referencedDeclaration": 991,
+                  "referencedDeclaration": 1004,
                   "type": "struct Roles.Role"
                 },
-                "id": 696,
+                "id": 808,
                 "name": "UserDefinedTypeName",
-                "src": "463:10:1"
+                "src": "463:10:2"
               }
             ],
-            "id": 697,
+            "id": 809,
             "name": "VariableDeclaration",
-            "src": "463:27:1"
+            "src": "463:27:2"
           },
           {
             "attributes": {
@@ -1483,7 +1501,7 @@
                 null
               ],
               "name": "",
-              "scope": 782,
+              "scope": 895,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
@@ -1496,9 +1514,9 @@
                   ]
                 },
                 "children": [],
-                "id": 698,
+                "id": 810,
                 "name": "ParameterList",
-                "src": "591:2:1"
+                "src": "591:2:2"
               },
               {
                 "attributes": {
@@ -1507,9 +1525,9 @@
                   ]
                 },
                 "children": [],
-                "id": 699,
+                "id": 811,
                 "name": "ParameterList",
-                "src": "601:0:1"
+                "src": "601:0:2"
               },
               {
                 "children": [
@@ -1541,13 +1559,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 765,
+                              "referencedDeclaration": 878,
                               "type": "function (address)",
                               "value": "_addAirline"
                             },
-                            "id": 700,
+                            "id": 812,
                             "name": "Identifier",
-                            "src": "651:11:1"
+                            "src": "651:11:2"
                           },
                           {
                             "attributes": {
@@ -1567,38 +1585,38 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1296,
+                                  "referencedDeclaration": 1309,
                                   "type": "msg",
                                   "value": "msg"
                                 },
-                                "id": 701,
+                                "id": 813,
                                 "name": "Identifier",
-                                "src": "663:3:1"
+                                "src": "663:3:2"
                               }
                             ],
-                            "id": 702,
+                            "id": 814,
                             "name": "MemberAccess",
-                            "src": "663:10:1"
+                            "src": "663:10:2"
                           }
                         ],
-                        "id": 703,
+                        "id": 815,
                         "name": "FunctionCall",
-                        "src": "651:23:1"
+                        "src": "651:23:2"
                       }
                     ],
-                    "id": 704,
+                    "id": 816,
                     "name": "ExpressionStatement",
-                    "src": "651:23:1"
+                    "src": "651:23:2"
                   }
                 ],
-                "id": 705,
+                "id": 817,
                 "name": "Block",
-                "src": "601:78:1"
+                "src": "601:78:2"
               }
             ],
-            "id": 706,
+            "id": 818,
             "name": "FunctionDefinition",
-            "src": "580:99:1"
+            "src": "580:99:2"
           },
           {
             "attributes": {
@@ -1614,9 +1632,9 @@
                   ]
                 },
                 "children": [],
-                "id": 707,
+                "id": 819,
                 "name": "ParameterList",
-                "src": "784:2:1"
+                "src": "784:2:2"
               },
               {
                 "children": [
@@ -1646,16 +1664,16 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                1299,
-                                1300
+                                1312,
+                                1313
                               ],
-                              "referencedDeclaration": 1299,
+                              "referencedDeclaration": 1312,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
-                            "id": 708,
+                            "id": 820,
                             "name": "Identifier",
-                            "src": "793:7:1"
+                            "src": "793:7:2"
                           },
                           {
                             "attributes": {
@@ -1683,13 +1701,13 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 730,
+                                  "referencedDeclaration": 842,
                                   "type": "function (address) view returns (bool)",
                                   "value": "isAirline"
                                 },
-                                "id": 709,
+                                "id": 821,
                                 "name": "Identifier",
-                                "src": "801:9:1"
+                                "src": "801:9:2"
                               },
                               {
                                 "attributes": {
@@ -1709,48 +1727,48 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 1296,
+                                      "referencedDeclaration": 1309,
                                       "type": "msg",
                                       "value": "msg"
                                     },
-                                    "id": 710,
+                                    "id": 822,
                                     "name": "Identifier",
-                                    "src": "811:3:1"
+                                    "src": "811:3:2"
                                   }
                                 ],
-                                "id": 711,
+                                "id": 823,
                                 "name": "MemberAccess",
-                                "src": "811:10:1"
+                                "src": "811:10:2"
                               }
                             ],
-                            "id": 712,
+                            "id": 824,
                             "name": "FunctionCall",
-                            "src": "801:21:1"
+                            "src": "801:21:2"
                           }
                         ],
-                        "id": 713,
+                        "id": 825,
                         "name": "FunctionCall",
-                        "src": "793:30:1"
+                        "src": "793:30:2"
                       }
                     ],
-                    "id": 714,
+                    "id": 826,
                     "name": "ExpressionStatement",
-                    "src": "793:30:1"
+                    "src": "793:30:2"
                   },
                   {
-                    "id": 715,
+                    "id": 827,
                     "name": "PlaceholderStatement",
-                    "src": "829:1:1"
+                    "src": "829:1:2"
                   }
                 ],
-                "id": 716,
+                "id": 828,
                 "name": "Block",
-                "src": "787:48:1"
+                "src": "787:48:2"
               }
             ],
-            "id": 717,
+            "id": 829,
             "name": "ModifierDefinition",
-            "src": "764:71:1"
+            "src": "764:71:2"
           },
           {
             "attributes": {
@@ -1762,7 +1780,7 @@
                 null
               ],
               "name": "isAirline",
-              "scope": 782,
+              "scope": 895,
               "stateMutability": "view",
               "superFunction": null,
               "visibility": "public"
@@ -1774,7 +1792,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "account",
-                      "scope": 730,
+                      "scope": 842,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -1788,19 +1806,19 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 718,
+                        "id": 830,
                         "name": "ElementaryTypeName",
-                        "src": "912:7:1"
+                        "src": "912:7:2"
                       }
                     ],
-                    "id": 719,
+                    "id": 831,
                     "name": "VariableDeclaration",
-                    "src": "912:15:1"
+                    "src": "912:15:2"
                   }
                 ],
-                "id": 720,
+                "id": 832,
                 "name": "ParameterList",
-                "src": "911:17:1"
+                "src": "911:17:2"
               },
               {
                 "children": [
@@ -1808,7 +1826,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "",
-                      "scope": 730,
+                      "scope": 842,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "bool",
@@ -1821,25 +1839,25 @@
                           "name": "bool",
                           "type": "bool"
                         },
-                        "id": 721,
+                        "id": 833,
                         "name": "ElementaryTypeName",
-                        "src": "950:4:1"
+                        "src": "950:4:2"
                       }
                     ],
-                    "id": 722,
+                    "id": 834,
                     "name": "VariableDeclaration",
-                    "src": "950:4:1"
+                    "src": "950:4:2"
                   }
                 ],
-                "id": 723,
+                "id": 835,
                 "name": "ParameterList",
-                "src": "949:6:1"
+                "src": "949:6:2"
               },
               {
                 "children": [
                   {
                     "attributes": {
-                      "functionReturnParameters": 723
+                      "functionReturnParameters": 835
                     },
                     "children": [
                       {
@@ -1870,7 +1888,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "has",
-                              "referencedDeclaration": 1077,
+                              "referencedDeclaration": 1090,
                               "type": "function (struct Roles.Role storage pointer,address) view returns (bool)"
                             },
                             "children": [
@@ -1880,18 +1898,18 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 697,
+                                  "referencedDeclaration": 809,
                                   "type": "struct Roles.Role storage ref",
                                   "value": "airlines"
                                 },
-                                "id": 724,
+                                "id": 836,
                                 "name": "Identifier",
-                                "src": "969:8:1"
+                                "src": "969:8:2"
                               }
                             ],
-                            "id": 725,
+                            "id": 837,
                             "name": "MemberAccess",
-                            "src": "969:12:1"
+                            "src": "969:12:2"
                           },
                           {
                             "attributes": {
@@ -1899,33 +1917,33 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 719,
+                              "referencedDeclaration": 831,
                               "type": "address",
                               "value": "account"
                             },
-                            "id": 726,
+                            "id": 838,
                             "name": "Identifier",
-                            "src": "982:7:1"
+                            "src": "982:7:2"
                           }
                         ],
-                        "id": 727,
+                        "id": 839,
                         "name": "FunctionCall",
-                        "src": "969:21:1"
+                        "src": "969:21:2"
                       }
                     ],
-                    "id": 728,
+                    "id": 840,
                     "name": "Return",
-                    "src": "962:28:1"
+                    "src": "962:28:2"
                   }
                 ],
-                "id": 729,
+                "id": 841,
                 "name": "Block",
-                "src": "956:39:1"
+                "src": "956:39:2"
               }
             ],
-            "id": 730,
+            "id": 842,
             "name": "FunctionDefinition",
-            "src": "893:102:1"
+            "src": "893:102:2"
           },
           {
             "attributes": {
@@ -1937,7 +1955,7 @@
                 null
               ],
               "name": "addAirline",
-              "scope": 782,
+              "scope": 895,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
@@ -1949,7 +1967,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "account",
-                      "scope": 740,
+                      "scope": 852,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -1963,19 +1981,19 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 731,
+                        "id": 843,
                         "name": "ElementaryTypeName",
-                        "src": "1075:7:1"
+                        "src": "1075:7:2"
                       }
                     ],
-                    "id": 732,
+                    "id": 844,
                     "name": "VariableDeclaration",
-                    "src": "1075:15:1"
+                    "src": "1075:15:2"
                   }
                 ],
-                "id": 733,
+                "id": 845,
                 "name": "ParameterList",
-                "src": "1074:17:1"
+                "src": "1074:17:2"
               },
               {
                 "attributes": {
@@ -1984,9 +2002,9 @@
                   ]
                 },
                 "children": [],
-                "id": 734,
+                "id": 846,
                 "name": "ParameterList",
-                "src": "1100:0:1"
+                "src": "1100:0:2"
               },
               {
                 "children": [
@@ -2018,13 +2036,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 765,
+                              "referencedDeclaration": 878,
                               "type": "function (address)",
                               "value": "_addAirline"
                             },
-                            "id": 735,
+                            "id": 847,
                             "name": "Identifier",
-                            "src": "1106:11:1"
+                            "src": "1106:11:2"
                           },
                           {
                             "attributes": {
@@ -2032,33 +2050,33 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 732,
+                              "referencedDeclaration": 844,
                               "type": "address",
                               "value": "account"
                             },
-                            "id": 736,
+                            "id": 848,
                             "name": "Identifier",
-                            "src": "1118:7:1"
+                            "src": "1118:7:2"
                           }
                         ],
-                        "id": 737,
+                        "id": 849,
                         "name": "FunctionCall",
-                        "src": "1106:20:1"
+                        "src": "1106:20:2"
                       }
                     ],
-                    "id": 738,
+                    "id": 850,
                     "name": "ExpressionStatement",
-                    "src": "1106:20:1"
+                    "src": "1106:20:2"
                   }
                 ],
-                "id": 739,
+                "id": 851,
                 "name": "Block",
-                "src": "1100:31:1"
+                "src": "1100:31:2"
               }
             ],
-            "id": 740,
+            "id": 852,
             "name": "FunctionDefinition",
-            "src": "1055:76:1"
+            "src": "1055:76:2"
           },
           {
             "attributes": {
@@ -2069,23 +2087,46 @@
               "modifiers": [
                 null
               ],
-              "name": "renounceAirline",
-              "scope": 782,
+              "name": "removeAirline",
+              "scope": 895,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
             },
             "children": [
               {
-                "attributes": {
-                  "parameters": [
-                    null
-                  ]
-                },
-                "children": [],
-                "id": 741,
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "account",
+                      "scope": 862,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 853,
+                        "name": "ElementaryTypeName",
+                        "src": "1221:7:2"
+                      }
+                    ],
+                    "id": 854,
+                    "name": "VariableDeclaration",
+                    "src": "1221:15:2"
+                  }
+                ],
+                "id": 855,
                 "name": "ParameterList",
-                "src": "1222:2:1"
+                "src": "1220:17:2"
               },
               {
                 "attributes": {
@@ -2094,9 +2135,9 @@
                   ]
                 },
                 "children": [],
-                "id": 742,
+                "id": 856,
                 "name": "ParameterList",
-                "src": "1232:0:1"
+                "src": "1245:0:2"
               },
               {
                 "children": [
@@ -2121,71 +2162,54 @@
                             "attributes": {
                               "argumentTypes": [
                                 {
-                                  "typeIdentifier": "t_address_payable",
-                                  "typeString": "address payable"
+                                  "typeIdentifier": "t_address",
+                                  "typeString": "address"
                                 }
                               ],
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 781,
+                              "referencedDeclaration": 894,
                               "type": "function (address)",
                               "value": "_removeAirline"
                             },
-                            "id": 743,
+                            "id": 857,
                             "name": "Identifier",
-                            "src": "1238:14:1"
+                            "src": "1251:14:2"
                           },
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "isConstant": false,
-                              "isLValue": false,
-                              "isPure": false,
-                              "lValueRequested": false,
-                              "member_name": "sender",
-                              "referencedDeclaration": null,
-                              "type": "address payable"
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 854,
+                              "type": "address",
+                              "value": "account"
                             },
-                            "children": [
-                              {
-                                "attributes": {
-                                  "argumentTypes": null,
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
-                                  "referencedDeclaration": 1296,
-                                  "type": "msg",
-                                  "value": "msg"
-                                },
-                                "id": 744,
-                                "name": "Identifier",
-                                "src": "1253:3:1"
-                              }
-                            ],
-                            "id": 745,
-                            "name": "MemberAccess",
-                            "src": "1253:10:1"
+                            "id": 858,
+                            "name": "Identifier",
+                            "src": "1266:7:2"
                           }
                         ],
-                        "id": 746,
+                        "id": 859,
                         "name": "FunctionCall",
-                        "src": "1238:26:1"
+                        "src": "1251:23:2"
                       }
                     ],
-                    "id": 747,
+                    "id": 860,
                     "name": "ExpressionStatement",
-                    "src": "1238:26:1"
+                    "src": "1251:23:2"
                   }
                 ],
-                "id": 748,
+                "id": 861,
                 "name": "Block",
-                "src": "1232:37:1"
+                "src": "1245:34:2"
               }
             ],
-            "id": 749,
+            "id": 862,
             "name": "FunctionDefinition",
-            "src": "1198:71:1"
+            "src": "1198:81:2"
           },
           {
             "attributes": {
@@ -2197,7 +2221,7 @@
                 null
               ],
               "name": "_addAirline",
-              "scope": 782,
+              "scope": 895,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "internal"
@@ -2209,7 +2233,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "account",
-                      "scope": 765,
+                      "scope": 878,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -2223,19 +2247,19 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 750,
+                        "id": 863,
                         "name": "ElementaryTypeName",
-                        "src": "1382:7:1"
+                        "src": "1392:7:2"
                       }
                     ],
-                    "id": 751,
+                    "id": 864,
                     "name": "VariableDeclaration",
-                    "src": "1382:15:1"
+                    "src": "1392:15:2"
                   }
                 ],
-                "id": 752,
+                "id": 865,
                 "name": "ParameterList",
-                "src": "1381:17:1"
+                "src": "1391:17:2"
               },
               {
                 "attributes": {
@@ -2244,9 +2268,9 @@
                   ]
                 },
                 "children": [],
-                "id": 753,
+                "id": 866,
                 "name": "ParameterList",
-                "src": "1408:0:1"
+                "src": "1418:0:2"
               },
               {
                 "children": [
@@ -2280,7 +2304,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "add",
-                              "referencedDeclaration": 1023,
+                              "referencedDeclaration": 1036,
                               "type": "function (struct Roles.Role storage pointer,address)"
                             },
                             "children": [
@@ -2290,18 +2314,18 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 697,
+                                  "referencedDeclaration": 809,
                                   "type": "struct Roles.Role storage ref",
                                   "value": "airlines"
                                 },
-                                "id": 754,
+                                "id": 867,
                                 "name": "Identifier",
-                                "src": "1414:8:1"
+                                "src": "1424:8:2"
                               }
                             ],
-                            "id": 756,
+                            "id": 869,
                             "name": "MemberAccess",
-                            "src": "1414:12:1"
+                            "src": "1424:12:2"
                           },
                           {
                             "attributes": {
@@ -2309,23 +2333,23 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 751,
+                              "referencedDeclaration": 864,
                               "type": "address",
                               "value": "account"
                             },
-                            "id": 757,
+                            "id": 870,
                             "name": "Identifier",
-                            "src": "1427:7:1"
+                            "src": "1437:7:2"
                           }
                         ],
-                        "id": 758,
+                        "id": 871,
                         "name": "FunctionCall",
-                        "src": "1414:21:1"
+                        "src": "1424:21:2"
                       }
                     ],
-                    "id": 759,
+                    "id": 872,
                     "name": "ExpressionStatement",
-                    "src": "1414:21:1"
+                    "src": "1424:21:2"
                   },
                   {
                     "children": [
@@ -2355,13 +2379,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 691,
+                              "referencedDeclaration": 803,
                               "type": "function (address)",
                               "value": "AirlineAdded"
                             },
-                            "id": 760,
+                            "id": 873,
                             "name": "Identifier",
-                            "src": "1446:12:1"
+                            "src": "1456:12:2"
                           },
                           {
                             "attributes": {
@@ -2369,33 +2393,33 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 751,
+                              "referencedDeclaration": 864,
                               "type": "address",
                               "value": "account"
                             },
-                            "id": 761,
+                            "id": 874,
                             "name": "Identifier",
-                            "src": "1459:7:1"
+                            "src": "1469:7:2"
                           }
                         ],
-                        "id": 762,
+                        "id": 875,
                         "name": "FunctionCall",
-                        "src": "1446:21:1"
+                        "src": "1456:21:2"
                       }
                     ],
-                    "id": 763,
+                    "id": 876,
                     "name": "EmitStatement",
-                    "src": "1441:26:1"
+                    "src": "1451:26:2"
                   }
                 ],
-                "id": 764,
+                "id": 877,
                 "name": "Block",
-                "src": "1408:64:1"
+                "src": "1418:64:2"
               }
             ],
-            "id": 765,
+            "id": 878,
             "name": "FunctionDefinition",
-            "src": "1361:111:1"
+            "src": "1371:111:2"
           },
           {
             "attributes": {
@@ -2407,7 +2431,7 @@
                 null
               ],
               "name": "_removeAirline",
-              "scope": 782,
+              "scope": 895,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "internal"
@@ -2419,7 +2443,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "account",
-                      "scope": 781,
+                      "scope": 894,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -2433,19 +2457,19 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 766,
+                        "id": 879,
                         "name": "ElementaryTypeName",
-                        "src": "1598:7:1"
+                        "src": "1608:7:2"
                       }
                     ],
-                    "id": 767,
+                    "id": 880,
                     "name": "VariableDeclaration",
-                    "src": "1598:15:1"
+                    "src": "1608:15:2"
                   }
                 ],
-                "id": 768,
+                "id": 881,
                 "name": "ParameterList",
-                "src": "1597:17:1"
+                "src": "1607:17:2"
               },
               {
                 "attributes": {
@@ -2454,9 +2478,9 @@
                   ]
                 },
                 "children": [],
-                "id": 769,
+                "id": 882,
                 "name": "ParameterList",
-                "src": "1624:0:1"
+                "src": "1634:0:2"
               },
               {
                 "children": [
@@ -2490,7 +2514,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "remove",
-                              "referencedDeclaration": 1054,
+                              "referencedDeclaration": 1067,
                               "type": "function (struct Roles.Role storage pointer,address)"
                             },
                             "children": [
@@ -2500,18 +2524,18 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 697,
+                                  "referencedDeclaration": 809,
                                   "type": "struct Roles.Role storage ref",
                                   "value": "airlines"
                                 },
-                                "id": 770,
+                                "id": 883,
                                 "name": "Identifier",
-                                "src": "1630:8:1"
+                                "src": "1640:8:2"
                               }
                             ],
-                            "id": 772,
+                            "id": 885,
                             "name": "MemberAccess",
-                            "src": "1630:15:1"
+                            "src": "1640:15:2"
                           },
                           {
                             "attributes": {
@@ -2519,23 +2543,23 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 767,
+                              "referencedDeclaration": 880,
                               "type": "address",
                               "value": "account"
                             },
-                            "id": 773,
+                            "id": 886,
                             "name": "Identifier",
-                            "src": "1646:7:1"
+                            "src": "1656:7:2"
                           }
                         ],
-                        "id": 774,
+                        "id": 887,
                         "name": "FunctionCall",
-                        "src": "1630:24:1"
+                        "src": "1640:24:2"
                       }
                     ],
-                    "id": 775,
+                    "id": 888,
                     "name": "ExpressionStatement",
-                    "src": "1630:24:1"
+                    "src": "1640:24:2"
                   },
                   {
                     "children": [
@@ -2565,13 +2589,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 695,
+                              "referencedDeclaration": 807,
                               "type": "function (address)",
                               "value": "AirlineRemoved"
                             },
-                            "id": 776,
+                            "id": 889,
                             "name": "Identifier",
-                            "src": "1665:14:1"
+                            "src": "1675:14:2"
                           },
                           {
                             "attributes": {
@@ -2579,43 +2603,43 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 767,
+                              "referencedDeclaration": 880,
                               "type": "address",
                               "value": "account"
                             },
-                            "id": 777,
+                            "id": 890,
                             "name": "Identifier",
-                            "src": "1680:7:1"
+                            "src": "1690:7:2"
                           }
                         ],
-                        "id": 778,
+                        "id": 891,
                         "name": "FunctionCall",
-                        "src": "1665:23:1"
+                        "src": "1675:23:2"
                       }
                     ],
-                    "id": 779,
+                    "id": 892,
                     "name": "EmitStatement",
-                    "src": "1660:28:1"
+                    "src": "1670:28:2"
                   }
                 ],
-                "id": 780,
+                "id": 893,
                 "name": "Block",
-                "src": "1624:69:1"
+                "src": "1634:69:2"
               }
             ],
-            "id": 781,
+            "id": 894,
             "name": "FunctionDefinition",
-            "src": "1574:119:1"
+            "src": "1584:119:2"
           }
         ],
-        "id": 782,
+        "id": 895,
         "name": "ContractDefinition",
-        "src": "166:1529:1"
+        "src": "166:1539:2"
       }
     ],
-    "id": 783,
+    "id": 896,
     "name": "SourceUnit",
-    "src": "0:1695:1"
+    "src": "0:1705:2"
   },
   "compiler": {
     "name": "solc",
@@ -2652,12 +2676,45 @@
         }
       },
       "links": {},
-      "address": "0x8f0483125FCb9aaAEFA9209D8E9d7b9C8B9Fb90F",
-      "transactionHash": "0xd36e2522aea24c493c8a1dfa756191913073deafb45d7d53121b645e584a084e"
+      "address": "0x82D50AD3C1091866E258Fd0f1a7cC9674609D254",
+      "transactionHash": "0xc32e77bacf22d12870aee2b0b8b4caac868a2d24df9d2b8a15a782583d44b044"
+    },
+    "1626535847837": {
+      "events": {
+        "0xb55d65ff58a8ae5e1643396e49a8aa01aec7a0766f887812148a230464a41c8f": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "AirlineAdded",
+          "type": "event"
+        },
+        "0x30b877178d01ecce7800e37cb6dfbaad2e641045ee2ba52a50458ca4205bafbf": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "AirlineRemoved",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xd3558a07997bE8058ef3DfC81Fd1Cf06f2fB6267",
+      "transactionHash": "0x8915473d0373ff30f07d14e68532d8eac61d1deecea6b773dc088e2bfc3190a9"
     }
   },
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-07-16T03:50:18.849Z",
+  "updatedAt": "2021-07-17T22:07:32.887Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

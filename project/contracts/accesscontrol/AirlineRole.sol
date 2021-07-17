@@ -38,8 +38,8 @@ contract AirlineRole {
   }
 
   // Define a function 'renounceAirline' to renounce this role
-  function renounceAirline() public {
-    _removeAirline(msg.sender);
+  function removeAirline(address account) public {
+    _removeAirline(account);
   }
 
   // Define an internal function '_addAirline' to add this role, called by 'addAirline'
