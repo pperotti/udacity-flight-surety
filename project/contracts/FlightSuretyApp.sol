@@ -15,7 +15,7 @@ import "./accesscontrol/ConsumerRole.sol";
 /************************************************** */
 /* FlightSurety Smart Contract                      */
 /************************************************** */
-contract FlightSuretyApp is AdminRole, AirlineRole, ConsumerRole {
+contract FlightSuretyApp is Ownable, AdminRole, AirlineRole, ConsumerRole {
     using SafeMath for uint256; // Allow SafeMath functions to be called for all uint256 types (similar to "prototype" in Javascript)
 
     /********************************************************************************************/
@@ -430,5 +430,26 @@ contract FlightSuretyApp is AdminRole, AirlineRole, ConsumerRole {
         }
         return all;
     }
+
+    function getContractOwner() public view returns (address) {
+        return contractOwner;
+    } 
+
+
+/*
+    function requireRegistration(address _address) public view returns (bool) {
+        if (isFarmer(_address)) {
+        return false;
+        } else if (isDistributor(_address)) {
+        return false;
+        } else if (isRetailer(_address)) {
+        return false;
+        } else if (isConsumer(_address)) {
+        return false;
+        } else {
+        return true;
+        }
+    }
+    */
 
 }   

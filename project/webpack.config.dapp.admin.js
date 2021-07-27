@@ -2,10 +2,10 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: ['babel-polyfill', path.join(__dirname, "src/dapp")],
+  entry: ['babel-polyfill', path.join(__dirname, "src/dappadmin")],
   output: {
-    path: path.join(__dirname, "prod/dapp"),
-    filename: "bundle.js"
+    path: path.join(__dirname, "prod/dappadmin"),
+    filename: "bundle.admin.js"
   },
   module: {
     rules: [
@@ -33,7 +33,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({ 
-      template: path.join(__dirname, "src/dapp/index.html")
+      template: path.join(__dirname, "src/dappadmin/index.html")
     })
   ],
   resolve: {
@@ -41,9 +41,9 @@ module.exports = {
   },
   devServer: {
     contentBase: [
-      path.join(__dirname, "src/dapp"),
+      path.join(__dirname, "src/dappadmin"),
     ],
-    port: 8000,
+    port: 8001,
     stats: "minimal"
   }
 };

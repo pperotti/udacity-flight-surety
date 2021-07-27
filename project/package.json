@@ -11,6 +11,7 @@
     "test": "truffle test ./test/flightSurety.js",
     "dapp": "webpack-dev-server --mode development --config webpack.config.dapp.js",
     "dapp:prod": "webpack --mode production  --config webpack.config.dapp.js",
+    "dappadmin": "webpack-dev-server --mode development --config webpack.config.dapp.admin.js",
     "server": "rm -rf ./build/server && webpack --config webpack.config.server.js",
     "mochaTests": "mocha ./mochaTests/server.js"
   },
