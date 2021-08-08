@@ -7,7 +7,7 @@ const FSA = artifacts.require('FlightSuretyApp');
 
 contract('Oracles', async (accounts) => {
 
-  const TEST_ORACLES_COUNT = 10;
+  const TEST_ORACLES_COUNT = 5;
 
   // Watch contract events
   const STATUS_CODE_ON_TIME = 10;
@@ -24,16 +24,21 @@ contract('Oracles', async (accounts) => {
     initialTimestamp = Math.floor(Date.now() / 1000);
   });
 
-
   it('can register oracles', async () => {
     
     console.log("-------------------------------");
     console.log("TEST: Oracle registration");
     console.log("-------------------------------");
 
+    console.log("OWNER: " + accounts[0]);
+
+    let co = await flightSuretyApp.getContractOwner();
+    console.log("CO: " + co);
+
     // ARRANGE
     let fee = await flightSuretyApp.REGISTRATION_FEE.call();
     let feeInEther = web3.utils.fromWei(fee, 'ether');
+    
     console.log("Fee: " + fee + " Fee in Ether: " + feeInEther);
 
     // Print Accounts
@@ -49,7 +54,7 @@ contract('Oracles', async (accounts) => {
 
     // ACT
     for(let a=1; a<TEST_ORACLES_COUNT; a++) {      
-      await flightSuretyApp.registerOracle({ from:accounts[a], value:fee });
+      await flightSuretyApp.registerOracle(accounts[a], {from:accounts[0], value:fee });
 
       let isRegistered = await flightSuretyApp.isOracleRegistered({ from:accounts[a] });
       console.log("Is Oracle (" + accounts[a] + ") registered: " + isRegistered);
@@ -59,7 +64,6 @@ contract('Oracles', async (accounts) => {
     }
   });
 
-  
   it('can request flight status', async () => {
     
     console.log("\n-------------------------------");
@@ -181,11 +185,9 @@ contract('Oracles', async (accounts) => {
     console.log("requester: " + rc3.requester);
     console.log("isOpen: " + rc3.isOpen);
 
-    /* 
-    Find the first account that matches with the last index value and assign it
-    to the callerAccount variable
-    */
-   for(let a=1; a<TEST_ORACLES_COUNT; a++) {      
+    // Find the first account that matches with the last index value and assign it
+    // to the callerAccount variable
+    for(let a=1; a<TEST_ORACLES_COUNT; a++) {      
       let result = await flightSuretyApp.getOracleIndexes.call({from: accounts[a]});
       console.log("Oracle #∫" + a + ": " + result[0] + ", " + result[1] + ", " + result[2]);
       if (Number(result[0])==lastIndexUsed 
@@ -246,12 +248,10 @@ contract('Oracles', async (accounts) => {
     let rc3 = await flightSuretyApp.getResponseInfoByKey.call(key);
     console.log("requester: " + rc3.requester);
     console.log("isOpen: " + rc3.isOpen);
-
-    /* 
-    Find the first account that matches with the last index value and assign it
-    to the callerAccount variable
-    */
-   for(let a=1; a<TEST_ORACLES_COUNT; a++) {      
+ 
+    // Find the first account that matches with the last index value and assign it
+    // to the callerAccount variable
+    for(let a=1; a<TEST_ORACLES_COUNT; a++) {      
       let result = await flightSuretyApp.getOracleIndexes.call({from: accounts[a]});
       console.log("Oracle #∫" + a + ": " + result[0] + ", " + result[1] + ", " + result[2]);
       if (Number(result[0])==lastIndexUsed 
@@ -301,5 +301,23 @@ contract('Oracles', async (accounts) => {
 
   });
 
+  it('List Existing Oracles', async () => {
+
+    console.log("\n--------------------------------------------------");
+    console.log("TEST: List Existing Oracles");
+    console.log("--------------------------------------------------");
+
+    let oracleCount = await flightSuretyApp.getRegisteredOracleCount({from:accounts[0]});
+    console.log("Oracle Count: " + oracleCount);
+
+    //let oracleList = await flightSuretyApp.getOracleList({from:account[0]})
+    for(let i=0;i<oracleCount;i++) {
+      let currentAddress = await flightSuretyApp.getOracleAddress(i, {from:accounts[0]});
+      console.log("Address: " + currentAddress);
+
+      assert.equal(currentAddress, accounts[i+1], "Addresses don't match!");
+    }
+
+  });
 
 });

@@ -3,7 +3,7 @@ import Config from './config.json';
 import Web3 from 'web3';
 
 export default class Contract {
-    constructor(network, callback) {
+    constructor(network) {
         let config = Config[network];
         this.web3Provider = null;
         this.flightSuretyApp = null;
@@ -11,7 +11,6 @@ export default class Contract {
         this.caller = null;
         this.airlines = [];
         this.passengers = [];
-        this.initialize(callback);
     }
 
     initialize(callback) {
@@ -64,7 +63,7 @@ export default class Contract {
         this.web3.eth.getAccounts((error, accts) => {
             this.caller = accts[0];
             console.log("Caller: " + this.caller);
-            callback();
+            callback(error, accts);
         });
     }
 
@@ -88,5 +87,44 @@ export default class Contract {
             .call({from: self.caller}, callback)
     }
 
+    getOracleCount(callback) {
+        let self = this;
+        self.flightSuretyApp.methods
+            .getRegisteredOracleCount()
+            .call()
+            .then(c => 
+                {
+                    callback(c);
+                }
+            );
+    }
+
+    addOracleAddress(oracleAddress, callback) {
+        let self = this;
+        self.flightSuretyApp.methods
+            .registerOracle(oracleAddress)
+            .call({from: self.caller, value:1000000000000000000})
+            .then(() => {
+                console.log("Oracle Registered!")
+                callback();
+            });
+    }
+
+    /*
+    getOracleList(callback) {
+        let self = this;
+        let oracleList = [];
+        self.flightSuretyApp.methods.getRegisteredOracleCount().call({from: self.caller}, (count) => {
+            console.log("Count: " + count);
+            for (let i=0;i<count;i++) {
+                self.flightSuretyApp.methods.getOracleAddress.call(i, {from: self.caller}, (item) => {
+                    console.log("Item #" + i + " Value:" + item);  
+                    oracleList[i] = item;
+                });
+            }
+            callback(oracleList);
+        });
+    }
+    */
 
 }

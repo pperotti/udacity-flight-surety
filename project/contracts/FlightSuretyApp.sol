@@ -57,6 +57,14 @@ contract FlightSuretyApp is Ownable, AdminRole, AirlineRole, ConsumerRole {
     // Track all registered oracles
     mapping(address => Oracle) oracles;
 
+    // Number of registered oracles
+    uint8 registeredOracleCount = 0;
+
+    uint256 private constant MAX_ORACLE_COUNT = 10;
+
+    // List of registered oracles
+    address[] registeredAddressList = new address[](MAX_ORACLE_COUNT);
+
     // Model for responses from oracles
     struct ResponseInfo {
         address requester;                              // Account that requested status
@@ -126,6 +134,16 @@ contract FlightSuretyApp is Ownable, AdminRole, AirlineRole, ConsumerRole {
         _;
     }
 
+    modifier isOracleNotRegistered(address newAddress) {
+        require(oracles[newAddress].isRegistered == false, "The provided address is already registered");
+        _;
+    }
+
+    modifier isOracleRegistrationAllowed() {
+        require(registeredOracleCount < (MAX_ORACLE_COUNT-1), "Oracle registration is no longer allowed!");
+        _;
+    }
+
     /********************************************************************************************/
     /*                                       CONSTRUCTOR                                        */
     /********************************************************************************************/
@@ -190,21 +208,30 @@ contract FlightSuretyApp is Ownable, AdminRole, AirlineRole, ConsumerRole {
     //*****************************************************************
 
     // Register an oracle with the contract
-    function registerOracle()
+    function registerOracle(address newOracleAddress)
                             public
                             payable
+                            requireContractOwner()
+                            isOracleRegistrationAllowed()
+                            isOracleNotRegistered(newOracleAddress)
     {
         // Require registration fee
         require(msg.value >= REGISTRATION_FEE, "Registration fee is required");
 
         // Generate Unique Indexes for the new oracle
-        uint8[3] memory indexes = generateIndexes(msg.sender);
+        uint8[3] memory indexes = generateIndexes(newOracleAddress);
 
         // Create the proper Oracla object in the Contract with its assigned indexes.
-        oracles[msg.sender] = Oracle({
+        oracles[newOracleAddress] = Oracle({
                                         isRegistered: true,
                                         indexes: indexes
                                     });
+
+        // Save the address 
+        registeredAddressList[registeredOracleCount] = newOracleAddress;
+
+        // Increase Number 
+        registeredOracleCount++;
     }
 
     function getOracleIndexes()
@@ -435,6 +462,23 @@ contract FlightSuretyApp is Ownable, AdminRole, AirlineRole, ConsumerRole {
         return contractOwner;
     } 
 
+    function getRegisteredOracleCount() 
+                                    public 
+                                    view 
+                                    onlyOwner()
+                                    returns (uint8) 
+    {
+        return registeredOracleCount;
+    }
+
+    function getOracleAddress(uint8 index) 
+                                    public 
+                                    view 
+                                    onlyOwner()
+                                    returns(address) 
+    {
+        return registeredAddressList[index];
+    }
 
 /*
     function requireRegistration(address _address) public view returns (bool) {
