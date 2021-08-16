@@ -51,7 +51,12 @@ export default class OwnerHelper {
 
     showOwnerPanel() {
         var displayDiv = document.getElementById("display-wrapper");
+        
+        // Create UI for oracle list
         this.oraclesHelper.createOraclePanel(displayDiv);
+        this.oraclesHelper.loadOracleList();
+
+        // Create UI for Airlines
         this.airlinesHelper.createAirlinesPanel(displayDiv);
     }
 
@@ -77,9 +82,11 @@ export default class OwnerHelper {
     bindEvents() {
         var self = this;
         $(document).on('click', (event) => {
-            console.log("handleButtonClicks");
             self.oraclesHelper.handleOracleButtonClicks(event);
         });
+
+        //Register to listen for an event
+
     }
 
 }

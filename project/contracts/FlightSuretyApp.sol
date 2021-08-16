@@ -32,6 +32,9 @@ contract FlightSuretyApp is Ownable, AdminRole, AirlineRole, ConsumerRole {
 
     address private contractOwner;          // Account used to deploy contract
 
+    // Reference to the Contract Responsible for Data about Airlines
+    FlightSuretyDataContract flightSuretyDataContract;
+
     struct Flight {
         bool isRegistered;
         uint8 statusCode;
@@ -103,9 +106,21 @@ contract FlightSuretyApp is Ownable, AdminRole, AirlineRole, ConsumerRole {
         string flight, 
         uint256 timestamp);
 
-    // ------------------------
+    // Number of requests performed
     uint requestCount = 0;
-    
+
+    // Event fired when an Address has been added to the registration queue
+    event AirlineInvited(
+        address airline
+    );
+
+    // Number of allowed airlines
+    uint256 private constant MIN_NUMBER_OF_AIRLINES_FOR_DIRECT_ADDING = 4;
+
+    // Number of voters required for consensous
+    uint256 private constant MIN_NUMBER_VOTES_REQUIRED_FOR_CONSENSOUS = MIN_NUMBER_OF_AIRLINES_FOR_DIRECT_ADDING / 2;
+
+
     /********************************************************************************************/
     /*                                       FUNCTION MODIFIERS                                 */
     /********************************************************************************************/
@@ -144,6 +159,11 @@ contract FlightSuretyApp is Ownable, AdminRole, AirlineRole, ConsumerRole {
         _;
     }
 
+    modifier requireAuthorizedCaller(address airline) {
+        require(isAirline(airline) || isOwner(), "You need to be an airline or owner to use this call");
+        _;
+    }
+
     /********************************************************************************************/
     /*                                       CONSTRUCTOR                                        */
     /********************************************************************************************/
@@ -152,8 +172,8 @@ contract FlightSuretyApp is Ownable, AdminRole, AirlineRole, ConsumerRole {
     * @dev Contract constructor
     *
     */
-    constructor() 
-                public 
+    //constructor(address dataContract) public 
+    constructor() public 
     {
         contractOwner = msg.sender;
     }
@@ -161,6 +181,15 @@ contract FlightSuretyApp is Ownable, AdminRole, AirlineRole, ConsumerRole {
     /********************************************************************************************/
     /*                                       UTILITY FUNCTIONS                                  */
     /********************************************************************************************/
+
+
+    /**
+     * Configure the data contract with the specified address
+     */
+    function configureDataContract(address dataContract) external onlyOwner()
+    {
+        flightSuretyDataContract = FlightSuretyDataContract(dataContract);
+    }
 
     function isOperational() 
                             public 
@@ -170,25 +199,91 @@ contract FlightSuretyApp is Ownable, AdminRole, AirlineRole, ConsumerRole {
         return true;  // Modify to call data contract's status
     }
 
-    /********************************************************************************************/
-    /*                                     SMART CONTRACT FUNCTIONS                             */
-    /********************************************************************************************/
+    /********************************************************************************/
+    /*                            AIRLINES FUNCTIONS                                */
+    /********************************************************************************/
 
-  
+   ////returns(bool success, uint256 votes) 
    /**
     * @dev Add an airline to the registration queue
-    *
     */   
+/*
     function registerAirline
-                            (   
+                            (
+                                address newAirline
                             )
                             external
+                            requireAuthorizeCaller()
                             pure
-                            returns(bool success, uint256 votes)
     {
-        return (success, 0);
+
+        flightSuretyDataContract.registerAirline(newAirline)
+
+
+        emit Airline
+        //return (success, 0);
+    }
+*/
+
+    /**
+     * Invite an Airline to be part of the system.
+     */
+    function inviteAirline(
+                            address airline
+                          ) 
+                          external
+                          requireAuthorizedCaller(airline)
+    {
+        // Create the Airline if validation criteria is met
+        flightSuretyDataContract.createAirline(airline);
+
+        // Notify outsiders about the creation
+        emit AirlineInvited(airline);
     }
 
+    /**
+     * Accept airline
+     */
+    function acceptAirline(
+                            address airline
+                          ) 
+                          external
+                          requireAuthorizedCaller(airline)
+    {
+        // Retrieve the number of registered airline
+        uint256 airlineCount = flightSuretyDataContract.getAcceptedAirlineCount();
+
+        // Evaluate the number of votes
+        uint256 votes = flightSuretyDataContract.getVoteCount(airline);
+
+        // Represents whether the 
+
+        // Determine if we require consensous or we can add this directly
+        if (airlineCount > MIN_NUMBER_OF_AIRLINES_FOR_DIRECT_ADDING) {
+
+            // Evaluate the existing votes plus the new one represented by the 
+            // current code
+            if (votes+1 >= MIN_NUMBER_VOTES_REQUIRED_FOR_CONSENSOUS) {
+
+                // There is enough consensous to accept the airline
+                flightSuretyDataContract.acceptAirline(airline);
+
+            } else {
+                
+                // Only add my vote
+                flightSuretyDataContract.voteAirline(airline);
+            }
+            
+        } else { 
+
+            // Airline can be added without consensous
+            flightSuretyDataContract.acceptAirline(airline);
+        }
+    }
+
+    /********************************************************************************************/
+    /*                               SMART CONTRACT FUNCTIONS                             */
+    /********************************************************************************************/
 
    /**
     * @dev Register a future flight for insuring.
@@ -221,19 +316,20 @@ contract FlightSuretyApp is Ownable, AdminRole, AirlineRole, ConsumerRole {
         // Generate Unique Indexes for the new oracle
         uint8[3] memory indexes = generateIndexes(newOracleAddress);
 
-        // Create the proper Oracla object in the Contract with its assigned indexes.
-        oracles[newOracleAddress] = Oracle({
-                                        isRegistered: true,
-                                        indexes: indexes
-                                    });
-
         // Save the address 
         registeredAddressList[registeredOracleCount] = newOracleAddress;
 
         // Increase Number 
         registeredOracleCount++;
+
+        // Create the proper Oracla object in the Contract with its assigned indexes.
+        oracles[newOracleAddress] = Oracle({
+                                        isRegistered: true,
+                                        indexes: indexes
+                                    });
     }
 
+    // Retrieve the indexes associated with certain oracle 
     function getOracleIndexes()
                             view
                             public
@@ -282,6 +378,7 @@ contract FlightSuretyApp is Ownable, AdminRole, AirlineRole, ConsumerRole {
         emit OracleRequest(index, airline, flight, timestamp);
     }
 
+    // Retrieve the number of requests
     function getRequestCount()
                         view
                         public
@@ -290,6 +387,7 @@ contract FlightSuretyApp is Ownable, AdminRole, AirlineRole, ConsumerRole {
         return requestCount;
     }
 
+    // Retrieve the information associated with a response based on the specified data
     function getResponseInfo
                         (
                             uint8 index,
@@ -310,6 +408,7 @@ contract FlightSuretyApp is Ownable, AdminRole, AirlineRole, ConsumerRole {
         return getResponseInfoByKey(key);
     }
 
+    // Retrieve the information associated with a response based on the specified key
     function getResponseInfoByKey(uint256 key)
                         view
                         public
@@ -480,20 +579,35 @@ contract FlightSuretyApp is Ownable, AdminRole, AirlineRole, ConsumerRole {
         return registeredAddressList[index];
     }
 
-/*
-    function requireRegistration(address _address) public view returns (bool) {
-        if (isFarmer(_address)) {
-        return false;
-        } else if (isDistributor(_address)) {
-        return false;
-        } else if (isRetailer(_address)) {
-        return false;
-        } else if (isConsumer(_address)) {
-        return false;
-        } else {
-        return true;
-        }
-    }
-    */
-
 }   
+
+// Interface with the data contract
+contract FlightSuretyDataContract {
+
+    /**
+     * Invite an airline to be part of the system. If succeed, AirlineInvited is emitted.
+     */
+    function createAirline(address airline) external;
+
+    /**
+     * Add a vote for the specified airline if this hasn't been fully accepted yet 
+     * but it has been invited.
+     */
+    function voteAirline(address airline) external;
+
+    /**
+     * Retrieve the number of airline registered
+     */
+    function getAcceptedAirlineCount() external returns(uint256);
+
+    /**
+     * Retrieve the vode count associated with the specified vote count
+     */
+    function getVoteCount(address airline) external returns(uint256);
+
+    /**
+     * Send a vote for an airline approval. If succeed, AirlineAccepted is emitted. The event 
+     * will show the accumulated amount of votes. 
+     */
+    function acceptAirline(address airline) external;
+}

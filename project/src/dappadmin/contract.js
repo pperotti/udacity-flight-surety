@@ -7,7 +7,8 @@ export default class Contract {
         let config = Config[network];
         this.web3Provider = null;
         this.flightSuretyApp = null;
-        this.owner = config.appAddress;
+        this.contractAddress = config.appAddress;
+        this.owner = null;
         this.caller = null;
         this.airlines = [];
         this.passengers = [];
@@ -56,13 +57,16 @@ export default class Contract {
     loadContract() {
         this.flightSuretyApp = new this.web3.eth.Contract(
             FlightSuretyApp.abi, 
-            this.owner);
+            this.contractAddress
+        );
+        this.flightSuretyApp.configureDataContract(config.dataAddress);
     }
 
     loadCaller(callback) {
         this.web3.eth.getAccounts((error, accts) => {
             this.caller = accts[0];
-            console.log("Caller: " + this.caller);
+            this.owner = accts[0];
+            console.log("Caller: " + this.caller + " Owner: " + this.owner);
             callback(error, accts);
         });
     }
@@ -71,7 +75,7 @@ export default class Contract {
        let self = this;
        self.flightSuretyApp.methods
             .isOperational()
-            .call({from: self.caller}, callback);
+            .call({from: self.owner}, callback);
     }
 
     getContractOwner(callback) {
@@ -84,14 +88,14 @@ export default class Contract {
         let self = this;
         self.flightSuretyApp.methods
             .isOwner()
-            .call({from: self.caller}, callback)
+            .call({from: self.owner}, callback)
     }
 
     getOracleCount(callback) {
         let self = this;
         self.flightSuretyApp.methods
             .getRegisteredOracleCount()
-            .call()
+            .call({from: self.owner})
             .then(c => 
                 {
                     callback(c);
@@ -99,32 +103,26 @@ export default class Contract {
             );
     }
 
+    getOracleAddressById(id, callback) {
+        let self = this;
+        self.flightSuretyApp.methods
+            .getOracleAddress(id)
+            .call({from: self.owner})
+            .then((addr) => {
+                console.log("Oracle Address: " + addr);
+                callback(addr);
+            })
+    }
+
     addOracleAddress(oracleAddress, callback) {
         let self = this;
         self.flightSuretyApp.methods
             .registerOracle(oracleAddress)
-            .call({from: self.caller, value:1000000000000000000})
-            .then(() => {
-                console.log("Oracle Registered!")
-                callback();
-            });
-    }
-
-    /*
-    getOracleList(callback) {
-        let self = this;
-        let oracleList = [];
-        self.flightSuretyApp.methods.getRegisteredOracleCount().call({from: self.caller}, (count) => {
-            console.log("Count: " + count);
-            for (let i=0;i<count;i++) {
-                self.flightSuretyApp.methods.getOracleAddress.call(i, {from: self.caller}, (item) => {
-                    console.log("Item #" + i + " Value:" + item);  
-                    oracleList[i] = item;
+            .send({from: self.owner, value:1000000000000000000, gas:200000}, 
+                (error, result) => {
+                    console.log("Error: " + error + "\nResult: " + result);
+                    callback();
                 });
-            }
-            callback(oracleList);
-        });
     }
-    */
 
 }

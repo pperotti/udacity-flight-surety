@@ -29,6 +29,12 @@ export default class OracleHelper {
         // Left Column
         var leftColumn = document.createElement("td");
         leftColumn.style="width:50%";
+
+        var leftColumnContainer = document.createElement("div");
+        leftColumnContainer.name="leftColumnContainer";
+        leftColumnContainer.id="leftColumnContainer";
+        
+        leftColumn.appendChild(leftColumnContainer);
         this.createOracleList(leftColumn);
     
         // Right Column
@@ -46,40 +52,21 @@ export default class OracleHelper {
         // Adding the Table to Section
         section.appendChild(table);
         
-        //section.appendChild(document.createElement("br"));
-        //section.appendChild(document.createElement("hr"));
-        //section.appendChild(document.createElement("br"));
-    
         // Adding Section to the Container
         displayDiv.appendChild(section);
     }
 
     createOracleList(leftColumn) {
 
-        var selectTag = document.createElement("select");
-        selectTag.name="oracleList";
-        selectTag.id="oracleList";
-        selectTag.style="width:100%;";
-    
-        //Get the amount of registered oracles
-        this.loadOracleList(selectTag);
+        var showOracleButton = document.createElement("button");
+        showOracleButton.style="width:100%;";
+        showOracleButton.innerText = "Show Oracle's Address";
 
-        /*this.contract.getOracleList((oracleList) => {
-            for (let i=0;i<10;i++ ) {
-                var option = document.createElement("option");
-                let oracleAddress = oracleList[i];
-                option.value=oracleAddress;
-                option.text ="Oracle #" + i + " (..." + oracleAddress.substring(oracleAddress.length()-4) + ")";
-                selectTag.appendChild(option);
-            }
-        })*/
+        var dataIdAttribute = document.createAttribute("data-id");
+        dataIdAttribute.value = "1002";
+        showOracleButton.setAttributeNode(dataIdAttribute);
 
-        leftColumn.appendChild(selectTag);
-    
-        var deleteOracleButton = document.createElement("button");
-        deleteOracleButton.style="width:100%;";
-        deleteOracleButton.innerText = "Remove Oracle";
-        leftColumn.appendChild(deleteOracleButton);
+        leftColumn.appendChild(showOracleButton);
     }
 
     createNewOracle(rightColumn) {
@@ -97,20 +84,10 @@ export default class OracleHelper {
         addOracleButton.style="width:100%;";
         addOracleButton.innerText = "Add Oracle";
         var dataIdAttribute = document.createAttribute("data-id");
-        dataIdAttribute.value = "1";
+        dataIdAttribute.value = "1001";
         addOracleButton.setAttributeNode(dataIdAttribute);
     
         rightColumn.appendChild(addOracleButton);
-    }
-
-    registerOracleAddress() {
-        let self = this;
-        let address = $("#oracle-address").val();
-        console.log("Add Oracle Address: " + address);
-        this.contract.addOracleAddress(address, () => {
-            console.log("Oracle Added!");
-            self.loadOracleList();
-        })
     }
 
     handleOracleButtonClicks(event) {
@@ -119,20 +96,46 @@ export default class OracleHelper {
         console.log('ProcessId: ' + processId);
 
         switch(processId) {
-            case 1:
+            case 1001:
                 this.registerOracleAddress();
+                break;
+            case 1002:
+                this.showAddress();
                 break;
         }
     }
 
-    loadOracleList(selectTag) {
-        console.log("loadoraclelist ...");
+    registerOracleAddress() {
+        let self = this;
+        let address = $("#oracle-address").val();
+        console.log("Add Oracle Address: " + address);
+        self.contract.addOracleAddress(address, () => {
+            console.log("Oracle Added!");
+            this.contract.getOracleCount((count) => {
+               console.log("Accounts Available: " + count);
+               self.loadOracleList(); 
+            });
+        })
+    }
 
+    loadOracleList() {
+        console.log("loadoraclelist ...");
+        var leftColumnContainer = document.getElementById("leftColumnContainer");
+        var selectTag = document.getElementById("oracleList");
+        if (selectTag !== undefined && leftColumnContainer.contains(selectTag)) {
+            leftColumnContainer.removeChild(selectTag);
+        }
+
+        //Add Select Tag
+        var selectTag = document.createElement("select");
+        selectTag.name="oracleList";
+        selectTag.id="oracleList";
+        selectTag.style="width:100%;";
+        leftColumnContainer.appendChild(selectTag);
+        
+        // Add items
         this.contract.getOracleCount((count) => {
             console.log("Count: " + count);
-
-            //var selectTag = $("oracleList");
-
             for (let i=0;i<count;i++ ) {
                 var option = document.createElement("option");
                 option.value=i;
@@ -141,5 +144,15 @@ export default class OracleHelper {
             }
         });
     }
-    
+
+    showAddress() {
+        var currentAddressIndex = document.getElementById("oracleList").value;
+        console.log("get address index: " + currentAddressIndex);
+
+        this.contract.getOracleAddressById(currentAddressIndex, (address) => {
+            console.log("Received Address:" + address);
+            alert("The complete address for the selected oracle is: " + address);
+        })
+    }
+
 }
